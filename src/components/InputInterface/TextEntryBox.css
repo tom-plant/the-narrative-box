@@ -1,0 +1,27 @@
+/* TextEntryBox.css */
+
+.text-entry-box {
+  width: 100%; /* Set the width of the text entry box to 100% to fill the container */
+  display: flex; /* Add display flex for centering */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+.text-input {
+  width: 100%; /* Set the width of the input field to 100% to fill the container */
+  background-color: black; 
+  color: #303030; /* Set the text color to dark gray (#303030) */
+  resize: none; /* Prevent textarea resizing (optional) */
+  border: none; /* Remove the border (optional) */
+  padding: 10px; /* Add padding for spacing */
+  /* You can adjust other styles as needed */
+}
+
+/* Change text color to white when input is focused (active) */
+.text-input:focus {
+  color: white;
+}
+
+
+
+

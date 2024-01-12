@@ -1,0 +1,17 @@
+/* GenerateButton.css */
+
+.generate-button {
+  background-color: black; /* Set the button's background color to black */
+  color: white; /* Set the text color to white */
+  border: none;
+  padding: 10px 20px; /* Add padding for spacing (adjust as needed) */
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px; /* Add margin to separate it from the input text box */
+  font-family: 'Pixelify Sans', sans-serif; 
+}
+
+.generate-button:hover {
+  background-color: white; /* Change the background color on hover to white */
+  color: black; /* Change the text color on hover to black */
+}

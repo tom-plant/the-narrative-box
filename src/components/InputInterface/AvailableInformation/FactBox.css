@@ -1,0 +1,10 @@
+/* FactBox.css */
+
+.fact-box {
+  background-color: black; /* Set the box background to black */
+  color: #303030; /* Set the text color to dark gray (#303030) */
+  padding: 10px; /* Add padding as needed */
+  font-family: 'Pixelify Sans', sans-serif; /* Set the font-family to Pixelify Sans */
+  font-size: 16px; /* Adjust the font size as needed */
+  margin-top: 10px; /* Add margin to separate facts (adjust as needed) */
+}

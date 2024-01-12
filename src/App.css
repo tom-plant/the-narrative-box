@@ -2,37 +2,22 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Set the background color to black */
+body {
+  background-color: black;
+  margin: 0; /* Optionally remove default body margin */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
+/* Style the header */
 .App-header {
-  background-color: #282c34;
+  font-family: 'Pixelify Sans', sans-serif; /* Apply the Pixelify Sans font */
+  background-color: transparent; /* Remove background color */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: white; /* Set text color to white */
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
