@@ -1,26 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import FactBox from './FactBox';
 import './AvailableInformation.css';
 
-function AvailableInformation({ factCount }) {
+function AvailableInformation({ factCount, isButtonClicked }) {
   const [boxClicked, setBoxClicked] = useState(new Array(factCount).fill(false));
   const [clickCount, setClickCount] = useState(0);
 
-  const factBoxes = [];
+  useEffect(() => {
+    // Check if the button has been clicked, and initialize the counter accordingly
+    if (isButtonClicked) {
+      setClickCount(0); // Initialize click count to 0 when the button is clicked
+    }
+  }, [isButtonClicked]);
 
   const handleBoxClick = (index) => {
+    if (!isButtonClicked) {
+      // If the button has not been clicked, return early to avoid handling clicks
+      return;
+    }
+
     const updatedClickedState = [...boxClicked];
     updatedClickedState[index] = !updatedClickedState[index];
 
-    // Calculate the new click count based on the updated state
     const newClickCount = updatedClickedState.filter((clicked) => clicked).length;
 
-    // Check if the new click count is within the limit (0 to 5)
     if (newClickCount <= 5) {
       setBoxClicked(updatedClickedState);
       setClickCount(newClickCount);
     }
   };
+
+  const counter = isButtonClicked ? `${clickCount}/5` : null; // Only display counter if the button has been clicked
+
+  const factBoxes = [];
 
   for (let i = 0; i < factCount; i++) {
     const boxClass = boxClicked[i] ? 'fact-box clicked' : 'fact-box';
@@ -34,6 +46,10 @@ function AvailableInformation({ factCount }) {
 
   return (
     <div className="available-information">
+      {/* Display the counter if the button has been clicked */}
+      {counter && <div className="counter">{counter}</div>}
+
+      {/* Display the fact boxes */}
       {factBoxes.length > 0 && factBoxes}
     </div>
   );
