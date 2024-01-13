@@ -7,6 +7,8 @@
   margin-top: 10px;
   position: relative; /* Make the container a positioning context for the counter */
   font-family: 'Pixelify Sans', sans-serif; /* Set the font-family to Pixelify Sans */
+  max-height: 400px; /* Set a maximum height for scrolling */
+  overflow-y: auto; /* Enable vertical scrollbar when content exceeds max-height */
 }
 
 .available-information-title {
