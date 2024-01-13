@@ -35,6 +35,8 @@ function AvailableInformation({ factCount, isButtonClicked, onBoxSelectionChange
 
   const counter = isButtonClicked ? `${clickCount}/5` : null; // Only display counter if the button has been clicked
 
+  const selectText = isButtonClicked ? "Select up to five pieces of information" : null; // Display the text when the button is clicked
+
   const factBoxes = [];
 
   for (let i = 0; i < factCount; i++) {
@@ -51,6 +53,9 @@ function AvailableInformation({ factCount, isButtonClicked, onBoxSelectionChange
     <div className="available-information">
       {/* Display the counter if the button has been clicked */}
       {counter && <div className="counter">{counter}</div>}
+
+      {/* Display the select text if the button is clicked */}
+      {selectText && <div className="select-text">{selectText}</div>}
 
       {/* Display the fact boxes */}
       {factBoxes.length > 0 && factBoxes}

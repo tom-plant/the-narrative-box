@@ -23,6 +23,17 @@
   font-size: 13px; /* Adjust the font size as needed */
   color: #ffffff; 
   padding: 5px 10px; /* Add padding as needed */
-  border-radius: 5px; /* Add border-radius for rounded corners */
   font-family: 'Silkscreen', sans-serif; /* Use the Silkscreen font */
+}
+
+
+.select-text {
+  position: absolute; 
+  top: 0px; 
+  left: 19%; /* Center workaround I may need to fix */
+  font-size: 13px; 
+  color: #ffffff; 
+  padding: 5px; 
+  font-family: 'Pixelify Sans', sans-serif; 
+  text-align: center; 
 }
