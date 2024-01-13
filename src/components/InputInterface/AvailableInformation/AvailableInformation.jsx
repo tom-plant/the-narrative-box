@@ -7,6 +7,7 @@ import './AvailableInformation.css';
 function AvailableInformation({ factCount, isButtonClicked, onBoxSelectionChange }) {
   const [boxClicked, setBoxClicked] = useState(new Array(factCount).fill(false));
   const [clickCount, setClickCount] = useState(0);
+  const [isFlashing, setIsFlashing] = useState(false);
 
   useEffect(() => {
     // Check if the button has been clicked, and initialize the counter accordingly
@@ -30,6 +31,11 @@ function AvailableInformation({ factCount, isButtonClicked, onBoxSelectionChange
       setBoxClicked(updatedClickedState);
       setClickCount(newClickCount);
       onBoxSelectionChange(newClickCount);
+      setIsFlashing(false); // Reset flashing state
+    } else {
+      // If more than 5 boxes are selected, trigger flashing
+      setIsFlashing(true);
+      setTimeout(() => setIsFlashing(false), 3000); // Stop flashing after 3 seconds
     }
   };
 
@@ -52,7 +58,7 @@ function AvailableInformation({ factCount, isButtonClicked, onBoxSelectionChange
   return (
     <div className="available-information">
       {/* Display the counter if the button has been clicked */}
-      {counter && <div className="counter">{counter}</div>}
+      <div className={`counter ${isFlashing ? 'flashing' : ''}`}>{counter}</div>
 
       {/* Display the select text if the button is clicked */}
       {selectText && <div className="select-text">{selectText}</div>}
