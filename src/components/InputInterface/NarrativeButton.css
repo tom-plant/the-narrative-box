@@ -8,10 +8,25 @@
   font-size: 16px;
   cursor: pointer;
   margin-top: 10px; /* Add margin to separate it from the input text box */
-  font-family: 'Pixelify Sans', sans-serif; 
+  font-family: 'Pixelify Sans', sans-serif;
+  animation: pulse 1s infinite alternate; /* Add the pulsing animation */
+  transition: background-color 0.5s ease, color 0.5s ease; /* Add transitions for smooth color change */
 }
 
 .narrative-button:hover {
-  background-color: rgb(0, 0, 0); /* Change the background color on hover to white */
-  color: rgb(255, 255, 255); /* Change the text color on hover to black */
+  background-color: rgb(255, 255, 255); /* Change the background color on hover to white */
+  color: rgb(0, 0, 0); /* Change the text color on hover to black */
+  animation: none; /* Disable the pulsing animation on hover */
+}
+
+/* Define the pulsing animation */
+@keyframes pulse {
+  0% {
+    background-color: rgb(255, 255, 255);
+    color: #303030;
+  }
+  100% {
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+  }
 }
