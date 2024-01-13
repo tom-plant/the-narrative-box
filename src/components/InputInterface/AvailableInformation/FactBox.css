@@ -1,10 +1,23 @@
 /* FactBox.css */
 
+/* FactBox styles (initial state) */
 .fact-box {
+  /* Styles for the container, including background color */
+  background-color: black; /* Add the background color for the initial state */
+  padding: 2px;
+  font-family: 'Pixelify Sans', sans-serif;
+  font-size: 16px;
+  margin-top: 2px;
+  margin-bottom: 2px;
   background-color: black; /* Set the box background to black */
   color: #303030; /* Set the text color to dark gray (#303030) */
-  padding: 10px; /* Add padding as needed */
-  font-family: 'Pixelify Sans', sans-serif; /* Set the font-family to Pixelify Sans */
-  font-size: 16px; /* Adjust the font size as needed */
-  margin-top: 10px; /* Add margin to separate facts (adjust as needed) */
+}
+
+.fact-text {
+  color: white; /* Initial text color (white) */
+}
+
+/* Update the FactBox container when clicked */
+.fact-box.clicked {
+  background-color: white; /* Set the background to white when clicked */
 }

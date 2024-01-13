@@ -1,13 +1,15 @@
 //FactBox.jsx 
 
 import React from 'react';
-import './FactBox.css'; 
+import './FactBox.css';
 
-function FactBox() {
+function FactBox({ clicked }) {
+  const boxClass = clicked ? 'fact-box clicked' : 'fact-box';
+  const textClass = clicked ? 'fact-text clicked-text' : 'fact-text';
+
   return (
-    <div className="fact-box">
-      {/* You can customize the content of each FactBox */}
-      <p className="fact-text">This is a sample fact.</p>
+    <div className={boxClass}>
+      <p className={textClass}>This is a sample fact.</p>
     </div>
   );
 }
