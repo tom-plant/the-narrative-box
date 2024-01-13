@@ -1,8 +1,10 @@
+//AvailableInformation.jsx
+
 import React, { useState, useEffect } from 'react';
 import FactBox from './FactBox';
 import './AvailableInformation.css';
 
-function AvailableInformation({ factCount, isButtonClicked }) {
+function AvailableInformation({ factCount, isButtonClicked, onBoxSelectionChange }) {
   const [boxClicked, setBoxClicked] = useState(new Array(factCount).fill(false));
   const [clickCount, setClickCount] = useState(0);
 
@@ -27,6 +29,7 @@ function AvailableInformation({ factCount, isButtonClicked }) {
     if (newClickCount <= 5) {
       setBoxClicked(updatedClickedState);
       setClickCount(newClickCount);
+      onBoxSelectionChange(newClickCount);
     }
   };
 
