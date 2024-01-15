@@ -1,17 +1,40 @@
 /* GenerateButton.css */
 
 .generate-button {
-  background-color: black; /* Set the button's background color to black */
-  color: white; /* Set the text color to white */
+  background-color: black;
+  color: white;
   border: none;
-  padding: 10px 20px; /* Add padding for spacing (adjust as needed) */
+  padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
-  margin-top: 10px; /* Add margin to separate it from the input text box */
-  font-family: 'Pixelify Sans', sans-serif; 
+  margin-top: 10px;
+  font-family: 'Pixelify Sans', sans-serif;
+  transition: transform 0.1s ease-in-out; /* Add a transition for smooth animation */
 }
 
 .generate-button:hover {
-  background-color: white; /* Change the background color on hover to white */
-  color: black; /* Change the text color on hover to black */
+  background-color: white;
+  color: black;
+}
+
+.generate-button.bump {
+  animation: bumpAnimation 0.1s ease-in-out; /* Apply the animation when the 'bump' class is present */
+}
+
+@keyframes bumpAnimation {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px); /* Bump to the left */
+  }
+  50% {
+    transform: translateX(5px); /* Bump to the right */
+  }
+  75% {
+    transform: translateX(-5px); /* Bump to the left again */
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
