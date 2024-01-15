@@ -1,23 +1,23 @@
+/* App.css */
 .App {
   text-align: center;
 }
 
-/* Set the background color to black */
 body {
   background-color: black;
-  margin: 0; /* Optionally remove default body margin */
+  margin: 0;
 }
 
-/* Style the header */
 .App-header {
-  font-family: 'Pixelify Sans', sans-serif; /* Apply the Pixelify Sans font */
-  background-color: transparent; /* Remove background color */
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  font-family: 'Pixelify Sans', sans-serif;
+  background-color: transparent;
   font-size: calc(10px + 2vmin);
-  color: white; /* Set text color to white */
+  color: white;
 }
 
+.container {
+  display: flex;
+  justify-content: center; /* Center the container horizontally */
+  align-items: flex-start; /* Align items to the top */
+  padding: 20px; /* Add padding for spacing */
+}
