@@ -10,17 +10,26 @@ import ConsoleLeft from './components/ConsoleLeft/ConsoleLeft';
 
 function App() {
   const [isConsoleRightVisible, setConsoleRightVisible] = useState(false);
+  const [isConsoleLeftVisible, setConsoleLeftVisible] = useState(false);
 
+  //Console Visibility
   const showConsoleRight = () => {
     setConsoleRightVisible(true);
   };
+  const showConsoleLeft = () => {
+    setConsoleLeftVisible(true);
+  };
 
+  
   return (
     <div className="App">
       <Header />
       <div className="container">
-        <ConsoleLeft />
-        <InputInterface showConsoleRight={showConsoleRight} />
+      {isConsoleLeftVisible && <ConsoleLeft />}
+        <InputInterface 
+          showConsoleRight={showConsoleRight} // callback function
+          showConsoleLeft={showConsoleLeft} // callback function
+          />
         {isConsoleRightVisible && <ConsoleRight />}
       </div>
     </div>
