@@ -8,5 +8,6 @@
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow for depth */
   width: 400px; /* Set a fixed width for the box, adjust as needed */
   margin: 0 auto; /* Center the box horizontally on the screen */
+  height: 100vh; 
 }
 

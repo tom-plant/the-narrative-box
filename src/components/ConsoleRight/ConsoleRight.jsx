@@ -6,7 +6,7 @@ import './ConsoleRight.css';
 
 function ConsoleRight() {
   return (
-    <div className="console-right">
+    <div className="console-right" >
       {/* Content goes here */}
     </div>
   );

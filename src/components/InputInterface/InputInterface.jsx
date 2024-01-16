@@ -7,11 +7,11 @@ import AvailableInformation from './AvailableInformation/AvailableInformation';
 import NarrativeButton from './NarrativeButton';
 import './InputInterface.css';
 
-function InputInterface() {
+function InputInterface({ toggleConsoleRight, showConsoleRight }) {
   const [factCount, setFactCount] = useState(0);
-  const [isButtonClicked, setIsButtonClicked] = useState(false); // State to track button click
+  const [isButtonClicked, setIsButtonClicked] = useState(false); // State to track Generate Information button click
   const [selectedBoxCount, setSelectedBoxCount] = useState(0); // State to track selected box count
-  const [buttonDisabled, setButtonDisabled] = useState(false); // State to disable the button
+  const [buttonDisabled, setButtonDisabled] = useState(false); // State to disable the Generate Information button
 
   const handleGenerateClick = () => {
     if (factCount >= 30) {
@@ -25,7 +25,7 @@ function InputInterface() {
     // Cap the count at 30 if it exceeds
     setFactCount(newFactCount > 30 ? 30 : newFactCount);
 
-    // Set the state to indicate the button has been clicked
+    // Set the state to indicate the Generatee Information button has been clicked
     setIsButtonClicked(true);
     console.log("Button clicked!"); // Add a console log to check if the button is clicked
   };
@@ -40,14 +40,19 @@ function InputInterface() {
       <TextEntryBox />
       <GenerateButton
         onGenerateClick={handleGenerateClick}
-        disabled={buttonDisabled} // Pass the disabled state to the GenerateButton
+        disabled={buttonDisabled} // Pass the disabled state to the Generate Information Button
       />
       <AvailableInformation
         factCount={factCount}
         isButtonClicked={isButtonClicked} /* Pass isButtonClicked as a prop */
         onBoxSelectionChange={handleBoxSelectionChange} // Pass the handler to AvailableInformation
       />
-      {selectedBoxCount > 1 && <NarrativeButton />} {/* Render the button conditionally */}
+      {selectedBoxCount > 1 && (
+        <NarrativeButton
+          toggleConsoleRight={toggleConsoleRight} // Pass the callback function
+          showConsoleRight={showConsoleRight} 
+        />
+      )}
     </div>
   );
 }

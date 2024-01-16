@@ -1,13 +1,15 @@
-import React from 'react';
-import './NarrativeButton.css'; // Import the CSS file
+// NarrativeButton.jsx
 
-function NarrativeButton({ onButtonClick }) {
-  const handleButtonClick = () => {
-    onButtonClick(); // Trigger the button click action
+import React from 'react';
+import './NarrativeButton.css';
+
+function NarrativeButton({ showConsoleRight }) {
+  const handleNarrativeClick = () => {
+    showConsoleRight(); // Call the callback function to show ConsoleRight
   };
 
   return (
-    <button className="narrative-button" onClick={handleButtonClick}>
+    <button className="narrative-button" onClick={handleNarrativeClick}>
       Generate Narrative
     </button>
   );

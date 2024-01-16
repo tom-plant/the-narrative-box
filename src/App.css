@@ -17,7 +17,8 @@ body {
 
 .container {
   display: flex;
-  justify-content: center; /* Center the container horizontally */
-  align-items: flex-start; /* Align items to the top */
-  padding: 20px; /* Add padding for spacing */
+  justify-content: center;
+  align-items: flex-start; 
+  padding: 20px; 
+  grid-template-columns: auto auto; /* Two equal-width columns */
 }
