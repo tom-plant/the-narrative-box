@@ -4,61 +4,59 @@ import React, { useState, useEffect } from 'react';
 import FactBox from './FactBox';
 import './AvailableInformation.css';
 
-function AvailableInformation({ factCount, isButtonClicked, onBoxSelectionChange }) {
-  const [boxClicked, setBoxClicked] = useState(new Array(factCount).fill(false));
-  const [clickCount, setClickCount] = useState(0);
-  const [isFlashing, setIsFlashing] = useState(false);
+function AvailableInformation({ factCount, isButtonClicked, onBoxSelectionChange, factTexts }) {
+  const [boxClicked, setBoxClicked] = useState(new Array(factCount).fill(false)); // State to track which boxes are clicked
+  const [clickCount, setClickCount] = useState(0); // State to track the number of clicks
 
+// Counter for tracking how many Fact Boxes are selected 
   useEffect(() => {
-    // Check if the button has been clicked, and initialize the counter accordingly
-    if (isButtonClicked) {
-      setClickCount(0); // Initialize click count to 0 when the button is clicked
+    if (isButtonClicked) {  // Initialize the counter upon click
+      setClickCount(0); // Set click count to 0
     }
   }, [isButtonClicked]);
 
+// Hande clicking a Fact Box
   const handleBoxClick = (index) => {
     if (!isButtonClicked) {
       // If the button has not been clicked, return early to avoid handling clicks
       return;
     }
 
+    // Update the clicked state for the clicked box
     const updatedClickedState = [...boxClicked];
     updatedClickedState[index] = !updatedClickedState[index];
 
+    // Calculate the new click count
     const newClickCount = updatedClickedState.filter((clicked) => clicked).length;
 
     if (newClickCount <= 5) {
       setBoxClicked(updatedClickedState);
       setClickCount(newClickCount);
       onBoxSelectionChange(newClickCount);
-      setIsFlashing(false); // Reset flashing state
-    } else {
-      // If more than 5 boxes are selected, trigger flashing
-      setIsFlashing(true);
-      setTimeout(() => setIsFlashing(false), 3000); // Stop flashing after 3 seconds
     }
   };
 
+// Display the counter and select text based on button click
   const counter = isButtonClicked ? `${clickCount}/5` : null; // Only display counter if the button has been clicked
-
   const selectText = isButtonClicked ? "Select up to five pieces of information" : null; // Display the text when the button is clicked
-
+  
+// Generate Fact Box components based on factCount and factTexts
   const factBoxes = [];
-
   for (let i = 0; i < factCount; i++) {
     const boxClass = boxClicked[i] ? 'fact-box clicked' : 'fact-box';
 
     factBoxes.push(
       <div key={i} className={boxClass} onClick={() => handleBoxClick(i)}>
-        <FactBox />
+        <FactBox text={factTexts[i]} /> {/* Pass unique text as a prop */}
       </div>
     );
   }
 
+
   return (
     <div className="available-information">
       {/* Display the counter if the button has been clicked */}
-      <div className={`counter ${isFlashing ? 'flashing' : ''}`}>{counter}</div>
+      <div className="counter">{counter}</div>
 
       {/* Display the select text if the button is clicked */}
       {selectText && <div className="select-text">{selectText}</div>}

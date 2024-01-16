@@ -7,7 +7,7 @@ import AvailableInformation from './AvailableInformation/AvailableInformation';
 import NarrativeButton from './NarrativeButton';
 import './InputInterface.css';
 
-function InputInterface({ toggleConsoles, showConsoleRight, showConsoleLeft }) {
+function InputInterface({ toggleConsoles, showConsoleRight, showConsoleLeft, factTexts }) {
   const [factCount, setFactCount] = useState(0);
   const [isButtonClicked, setIsButtonClicked] = useState(false); // State to track Generate Information button click
   const [selectedBoxCount, setSelectedBoxCount] = useState(0); // State to track selected box count
@@ -47,6 +47,7 @@ function InputInterface({ toggleConsoles, showConsoleRight, showConsoleLeft }) {
         factCount={factCount}
         isButtonClicked={isButtonClicked} // Pass isButtonClicked as a prop 
         onBoxSelectionChange={handleBoxSelectionChange} // Pass the handler to AvailableInformation
+        factTexts={factTexts} //Pass fact texts to AvailableInformation
       />
       {selectedBoxCount > 1 && (
         <NarrativeButton
