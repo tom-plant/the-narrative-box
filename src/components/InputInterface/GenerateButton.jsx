@@ -3,17 +3,17 @@
 import React, { useState } from 'react';
 import './GenerateButton.css';
 
-function GenerateButton({ onGenerateClick, disabled }) {
+function GenerateButton({ onInfoClick, disabled }) {
   const [buttonText, setButtonText] = useState('Generate Information'); // Initialize button text
   const [buttonClicked, setButtonClicked] = useState(false); // Initialize button click state
 
-  const handleGenerateClick = () => {
+  const handleInfoClick = () => {
     if (disabled) {
       // If disabled, trigger the animation and return without generating more boxes
       setButtonClicked(true);
       setTimeout(() => setButtonClicked(false), 200); // Reset animation after 200ms
     } else {
-      onGenerateClick(); // Trigger the click event
+      onInfoClick(); // Trigger the click event
       if (!buttonClicked) {
         setButtonText('More Information'); // Change the button text after the first click
         setButtonClicked(true); // Update button click state
@@ -22,7 +22,7 @@ function GenerateButton({ onGenerateClick, disabled }) {
   };
 
   return (
-    <button className={`generate-button ${buttonClicked && disabled ? 'bump' : ''}`} onClick={handleGenerateClick}>
+    <button className={`generate-button ${buttonClicked && disabled ? 'bump' : ''}`} onClick={handleInfoClick}>
       {buttonText}
     </button>
   );

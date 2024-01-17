@@ -7,14 +7,14 @@ import AvailableInformation from './AvailableInformation/AvailableInformation';
 import NarrativeButton from './NarrativeButton';
 import './InputInterface.css';
 
-function InputInterface({ toggleConsoles, showConsoleRight, showConsoleLeft, factTexts }) {
+function InputInterface({ showConsoleRight, showConsoleLeft, factTexts }) {
   const [factCount, setFactCount] = useState(0);
-  const [isButtonClicked, setIsButtonClicked] = useState(false); // State to track Generate Information button click
+  const [isInfoButtonClicked, setIsInfoButtonClicked] = useState(false); // State to track Generate Information button click
   const [selectedBoxCount, setSelectedBoxCount] = useState(0); // State to track selected box count
   const [buttonDisabled, setButtonDisabled] = useState(false); // State to disable the Generate Information button
 
 // Generate Information Button
-  const handleGenerateClick = () => {
+  const handleInfoClick = () => {
     // Disable Generate Information Button
     if (factCount >= 30) { // Disable the button if the factCount reaches 30
       setButtonDisabled(true);
@@ -26,7 +26,7 @@ function InputInterface({ toggleConsoles, showConsoleRight, showConsoleLeft, fac
     setFactCount(newFactCount > 30 ? 30 : newFactCount);
 
     // Set the state to indicate the Generate Information button has been clicked
-    setIsButtonClicked(true);
+    setIsInfoButtonClicked(true);
     console.log("Button clicked!"); // Add a console log to check if the button is clicked
   };
 
@@ -35,25 +35,30 @@ function InputInterface({ toggleConsoles, showConsoleRight, showConsoleLeft, fac
     setSelectedBoxCount(count);
   };
 
+// Unrender Selected Boxes
+  const unrenderSelectedBoxes = () => {
+    console.log("Generate Narrative button clicked to unrender selectedboxes");
+  };
 
   return (
     <div className="input-interface">
       <TextEntryBox />
       <GenerateButton
-        onGenerateClick={handleGenerateClick} // Pass the callback function
+        onInfoClick={handleInfoClick} // Pass the callback function
         disabled={buttonDisabled} // Pass the disabled state to the Generate Information Button
       />
       <AvailableInformation
         factCount={factCount}
-        isButtonClicked={isButtonClicked} // Pass isButtonClicked as a prop 
+        isInfoButtonClicked={isInfoButtonClicked} // Pass isInfoButtonClicked as a prop 
         onBoxSelectionChange={handleBoxSelectionChange} // Pass the handler to AvailableInformation
         factTexts={factTexts} //Pass fact texts to AvailableInformation
+        unrenderSelectedBoxes={unrenderSelectedBoxes} // Pass the function to AvailableInformation
       />
       {selectedBoxCount > 1 && (
         <NarrativeButton
-          toggleConsoleRight={toggleConsoles} // Pass the callback function
           showConsoleRight={showConsoleRight} 
           showConsoleLeft={showConsoleLeft}
+          unrenderSelectedBoxes={unrenderSelectedBoxes} // Pass the function to NarrativeButton
         />
       )}
     </div>

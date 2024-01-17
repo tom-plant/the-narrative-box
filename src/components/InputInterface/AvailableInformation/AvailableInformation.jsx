@@ -4,20 +4,20 @@ import React, { useState, useEffect } from 'react';
 import FactBox from './FactBox';
 import './AvailableInformation.css';
 
-function AvailableInformation({ factCount, isButtonClicked, onBoxSelectionChange, factTexts }) {
+function AvailableInformation({ factCount, isInfoButtonClicked, onBoxSelectionChange, factTexts }) {
   const [boxClicked, setBoxClicked] = useState(new Array(factCount).fill(false)); // State to track which boxes are clicked
   const [clickCount, setClickCount] = useState(0); // State to track the number of clicks
 
 // Counter for tracking how many Fact Boxes are selected 
   useEffect(() => {
-    if (isButtonClicked) {  // Initialize the counter upon click
+    if (isInfoButtonClicked) {  // Initialize the counter upon click
       setClickCount(0); // Set click count to 0
     }
-  }, [isButtonClicked]);
+  }, [isInfoButtonClicked]);
 
 // Hande clicking a Fact Box
   const handleBoxClick = (index) => {
-    if (!isButtonClicked) {
+    if (!isInfoButtonClicked) {
       // If the button has not been clicked, return early to avoid handling clicks
       return;
     }
@@ -37,8 +37,8 @@ function AvailableInformation({ factCount, isButtonClicked, onBoxSelectionChange
   };
 
 // Display the counter and select text based on button click
-  const counter = isButtonClicked ? `${clickCount}/5` : null; // Only display counter if the button has been clicked
-  const selectText = isButtonClicked ? "Select up to five pieces of information" : null; // Display the text when the button is clicked
+  const counter = isInfoButtonClicked ? `${clickCount}/5` : null; // Only display counter if the button has been clicked
+  const selectText = isInfoButtonClicked ? "Select up to five pieces of information" : null; // Display the text when the button is clicked
   
 // Generate Fact Box components based on factCount and factTexts
   const factBoxes = [];
