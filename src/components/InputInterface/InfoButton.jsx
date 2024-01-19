@@ -1,9 +1,9 @@
-// GenerateButton.jsx
+// InfoButton.jsx
 
 import React, { useState } from 'react';
-import './GenerateButton.css';
+import './InfoButton.css';
 
-function GenerateButton({ onInfoClick, disabled }) {
+function InfoButton({ onInfoClick, disabled }) {
   const [buttonText, setButtonText] = useState('Generate Information'); // Initialize button text
   const [buttonClicked, setButtonClicked] = useState(false); // Initialize button click state
 
@@ -22,10 +22,10 @@ function GenerateButton({ onInfoClick, disabled }) {
   };
 
   return (
-    <button className={`generate-button ${buttonClicked && disabled ? 'bump' : ''}`} onClick={handleInfoClick}>
+    <button className={`info-button ${buttonClicked && disabled ? 'bump' : ''}`} onClick={handleInfoClick}>
       {buttonText}
     </button>
   );
 }
 
-export default GenerateButton;
+export default InfoButton;

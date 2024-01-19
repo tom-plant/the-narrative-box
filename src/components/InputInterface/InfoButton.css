@@ -1,6 +1,6 @@
-/* GenerateButton.css */
+/* InfoButton.css */
 
-.generate-button {
+.info-button {
   background-color: black;
   color: white;
   border: none;
@@ -12,12 +12,12 @@
   transition: transform 0.1s ease-in-out; /* Add a transition for smooth animation */
 }
 
-.generate-button:hover {
+.info-button:hover {
   background-color: white;
   color: black;
 }
 
-.generate-button.bump {
+.info-button.bump {
   animation: bumpAnimation 0.1s ease-in-out; /* Apply the animation when the 'bump' class is present */
 }
 

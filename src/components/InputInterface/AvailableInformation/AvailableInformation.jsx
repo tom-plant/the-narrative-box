@@ -4,67 +4,97 @@ import React, { useState, useEffect } from 'react';
 import FactBox from './FactBox';
 import './AvailableInformation.css';
 
-function AvailableInformation({ factCount, isInfoButtonClicked, onBoxSelectionChange, factTexts }) {
-  const [boxClicked, setBoxClicked] = useState(new Array(factCount).fill(false)); // State to track which boxes are clicked
-  const [clickCount, setClickCount] = useState(0); // State to track the number of clicks
+function AvailableInformation({ isInfoButtonClicked, isNarrativeButtonClicked, onBoxSelectionChange, factTexts, onRemainingFactCount, onUpdateSelectedBoxCount }) {
+  const [factBoxes, setFactBoxes] = useState([]); // State to store generated fact boxes
+  const [isButtonClicked, setIsButtonClicked] = useState(false); // State to track button click
+  const [selectedBoxes, setSelectedBoxes] = useState([]); // State to store selected fact boxes
 
-// Counter for tracking how many Fact Boxes are selected 
+ // Function to generate fact boxes based on the data source
+const generateFactBoxes = () => {
+  // Check if the "Generate Information" button is clicked and there are more facts to generate
+  if (isInfoButtonClicked && factBoxes.length < factTexts.length) {
+    const remainingFactCount = factTexts.length - factBoxes.length;
+    // Pass to parent component
+    onRemainingFactCount(remainingFactCount);
+    const numToGenerate = Math.min(6, remainingFactCount); // Generate up to 6 at a time
+
+    // Create FactBox components from the fact texts in order
+    const generatedFactBoxes = factTexts
+      .slice(factBoxes.length, factBoxes.length + numToGenerate)
+      .map((factText, index) => (
+        <FactBox key={factBoxes.length + index} text={factText} />
+      ));
+
+    // Append the newly generated fact boxes to the existing ones
+    setFactBoxes((prevFactBoxes) => [...prevFactBoxes, ...generatedFactBoxes]);
+  }
+};
+
+ // Handle generating fact boxes when the button is clicked
   useEffect(() => {
-    if (isInfoButtonClicked) {  // Initialize the counter upon click
-      setClickCount(0); // Set click count to 0
+    if (isInfoButtonClicked) {
+      setIsButtonClicked(true); // Set the button click state to true when clicked
     }
+    generateFactBoxes();
   }, [isInfoButtonClicked]);
 
-// Hande clicking a Fact Box
-  const handleBoxClick = (index) => {
-    if (!isInfoButtonClicked) {
-      // If the button has not been clicked, return early to avoid handling clicks
-      return;
+  // Receive Narrative Button Click #FILL THIS IN LATER
+  useEffect(() => {
+    if (isNarrativeButtonClicked) {
+      console.log("Generate Narrative button clicked and signal sent to AvailableInformation!");
+      // Implement logic for transferring selected fact boxes if needed
     }
+  });
 
-    // Update the clicked state for the clicked box
-    const updatedClickedState = [...boxClicked];
-    updatedClickedState[index] = !updatedClickedState[index];
-
-    // Calculate the new click count
-    const newClickCount = updatedClickedState.filter((clicked) => clicked).length;
-
-    if (newClickCount <= 5) {
-      setBoxClicked(updatedClickedState);
-      setClickCount(newClickCount);
-      onBoxSelectionChange(newClickCount);
+  // Function to handle fact box click and toggle selection
+  const handleBoxClick = (index) => {
+    if (isButtonClicked) {
+      if (selectedBoxes.length < 5 || selectedBoxes.includes(index)) {
+        const selectedBoxIndex = selectedBoxes.indexOf(index);
+        if (selectedBoxIndex === -1) {
+          // Box is not selected, add it to the selectedBoxes array
+          setSelectedBoxes((prevSelectedBoxes) => [...prevSelectedBoxes, index]);
+        } else {
+          // Box is selected, remove it from the selectedBoxes array
+          setSelectedBoxes((prevSelectedBoxes) =>
+            prevSelectedBoxes.filter((item) => item !== index)
+          );
+        }
+  
+        // Update the selected box count in the parent component
+        onUpdateSelectedBoxCount(selectedBoxes.length + (selectedBoxIndex === -1 ? 1 : -1));
+      }
     }
   };
 
-// Display the counter and select text based on button click
-  const counter = isInfoButtonClicked ? `${clickCount}/5` : null; // Only display counter if the button has been clicked
-  const selectText = isInfoButtonClicked ? "Select up to five pieces of information" : null; // Display the text when the button is clicked
-  
-// Generate Fact Box components based on factCount and factTexts
-  const factBoxes = [];
-  for (let i = 0; i < factCount; i++) {
-    const boxClass = boxClicked[i] ? 'fact-box clicked' : 'fact-box';
+// Calculate the current number of selected boxes
+const selectedBoxCount = selectedBoxes.length;
 
-    factBoxes.push(
-      <div key={i} className={boxClass} onClick={() => handleBoxClick(i)}>
-        <FactBox text={factTexts[i]} /> {/* Pass unique text as a prop */}
+
+return (
+  <div className="available-information">
+    {isButtonClicked && (
+      <div className="select-text">Select up to five pieces of information</div>
+    )}
+
+    {/* Display the counter */}
+    {isButtonClicked && (
+      <div className="counter">{`${selectedBoxCount}/5`}</div>
+    )}
+
+    {/* Display the generated fact boxes */}
+    {factBoxes.map((factBox, index) => (
+      <div
+        key={index}
+        className={`fact-box${selectedBoxes.includes(index) ? ' selected' : ''}`}
+        onClick={() => handleBoxClick(index)}
+      >
+        <FactBox text={factTexts[index]} /> {/* Pass the text to FactBox */}
       </div>
-    );
-  }
-
-
-  return (
-    <div className="available-information">
-      {/* Display the counter if the button has been clicked */}
-      <div className="counter">{counter}</div>
-
-      {/* Display the select text if the button is clicked */}
-      {selectText && <div className="select-text">{selectText}</div>}
-
-      {/* Display the fact boxes */}
-      {factBoxes.length > 0 && factBoxes}
-    </div>
-  );
+    ))}
+  </div>
+);
 }
+
 
 export default AvailableInformation;
