@@ -71,7 +71,7 @@ function App() {
           factTexts={factTexts} // pass array of fact box texts as a prop
           onReceiveSelectedFactBoxes={receiveSelectedFactBoxes} // Pass the callback function
         />
-        {isConsoleRightVisible && <ConsoleRight />}
+        {isConsoleRightVisible && <ConsoleRight selectedFactBoxes={selectedFactBoxes} />}
       </div>
     </div>
   );
