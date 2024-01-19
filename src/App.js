@@ -42,12 +42,12 @@ const factTexts = [
   "Fact Box 30 Text"
 ];
 
-
 function App() {
   const [isConsoleRightVisible, setConsoleRightVisible] = useState(false);
   const [isConsoleLeftVisible, setConsoleLeftVisible] = useState(false);
+  const [selectedFactBoxes, setSelectedFactBoxes] = useState([]);
 
-  //Console Visibility
+  // Console Visibility
   const showConsoleRight = () => {
     setConsoleRightVisible(true);
   };
@@ -55,17 +55,22 @@ function App() {
     setConsoleLeftVisible(true);
   };
 
-  
+  const receiveSelectedFactBoxes = (factBoxes) => {
+    setSelectedFactBoxes(factBoxes);
+    console.log("Received selected fact boxes in App.js:", factBoxes); // Add this console log
+  };
+
   return (
     <div className="App">
       <Header />
       <div className="container">
-      {isConsoleLeftVisible && <ConsoleLeft />}
-        <InputInterface 
+        {isConsoleLeftVisible && <ConsoleLeft />}
+        <InputInterface
           showConsoleRight={showConsoleRight} // callback function
           showConsoleLeft={showConsoleLeft} // callback function
           factTexts={factTexts} // pass array of fact box texts as a prop
-          />
+          onReceiveSelectedFactBoxes={receiveSelectedFactBoxes} // Pass the callback function
+        />
         {isConsoleRightVisible && <ConsoleRight />}
       </div>
     </div>
