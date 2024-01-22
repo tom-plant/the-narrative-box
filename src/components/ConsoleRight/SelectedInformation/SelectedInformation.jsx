@@ -2,16 +2,17 @@
 
 import React from 'react';
 import './SelectedInformation.css'; // Style as needed
+import SelectedFactBox from './SelectedFactBox'; // Import the SelectedFactBox component
 
 function SelectedInformation({ selectedFactBoxes }) {
   return (
     <div className="selected-information">
-      <h3>Selected Information</h3>
-      <ul>
+        <h3 className="info-title">Selected Information</h3>
+       <div className="fact-boxes">
         {selectedFactBoxes.map((factBox, index) => (
-          <li key={index}>{factBox.text}</li>
+          <SelectedFactBox key={index} text={factBox.text} />
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

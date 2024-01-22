@@ -15,7 +15,7 @@ function NarrativeButton({ showConsoleRight, showConsoleLeft, unrenderSelectedBo
   
   return (
     <button className="narrative-button" onClick={handleNarrativeClick}>
-      Generate Narrative
+      Next
     </button>
   );
 }

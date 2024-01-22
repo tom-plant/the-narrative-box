@@ -1,13 +1,13 @@
 /* ConsoleLeft.css */
 
 .console-left {
-  background-color: #303030; /* Set the background color of the entire box */
-  border: 1px solid #000; /* Add a border around the box */
-  padding: 20px; /* Add padding to create spacing between elements and the box edge */
-  border-radius: 10px; /* Add rounded corners for a softer appearance */
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow for depth */
-  width: 400px; /* Set a fixed width for the box, adjust as needed */
-  margin: 0 auto; /* Center the box horizontally on the screen */
-  height: 100vh; 
+  background-color: #303030; 
+  border: 1px solid #000; 
+  padding: 20px; 
+  border-radius: 10px; 
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); 
+  width: 400px; 
+  margin: 0 auto; 
+  height: 84.5vh; /* swtich out with actual bottom measurement of input interface */
 }
 

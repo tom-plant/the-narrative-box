@@ -1,0 +1,14 @@
+/* SelectedInformation.css */
+
+.selected-information {
+    text-align: center;
+    font-family: 'Pixelify Sans', sans-serif;
+    color: white;
+}
+  
+  .info-title {
+    font-size: 20px; /* Adjust the font size as needed */
+    margin-top: 10px; /* Add margin to center it at the top */
+    font-weight: normal; /* Ensure the text is not bold */
+  }
+  

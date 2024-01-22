@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import FactBox from './FactBox';
 import './AvailableInformation.css';
 
-function AvailableInformation({ isInfoButtonClicked, isNarrativeButtonClicked, onBoxSelectionChange, factTexts, onRemainingFactCount, onUpdateSelectedBoxCount, onGenerateNarrative }) {
+function AvailableInformation({ isInfoButtonClicked, isNarrativeButtonClicked, factTexts, onRemainingFactCount, onUpdateSelectedBoxCount, onGenerateNarrative }) {
   const [factBoxes, setFactBoxes] = useState([]); // State to store generated fact boxes
   const [isButtonClicked, setIsButtonClicked] = useState(false); // State to track button click
   const [selectedBoxes, setSelectedBoxes] = useState([]); // State to store the index of selected fact boxes

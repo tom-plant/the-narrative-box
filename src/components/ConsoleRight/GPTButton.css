@@ -1,0 +1,20 @@
+/* GPTButton.css */
+
+.gpt-button {
+  background-color: rgb(0, 0, 0); /* Set the button's background color to black */
+  color: #ffffff; /* Set the text color to white */
+  border: none;
+  padding: 10px 20px; /* Add padding for spacing (adjust as needed) */
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px; /* Add margin to separate it from the input text box */
+  font-family: 'Pixelify Sans', sans-serif;
+}
+
+.gpt-button:hover {
+  background-color: rgb(255, 255, 255); /* Change the background color on hover to white */
+  color: rgb(0, 0, 0); /* Change the text color on hover to black */
+  animation: none; /* Disable the pulsing animation on hover */
+}
+
+
