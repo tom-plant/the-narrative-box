@@ -1,5 +1,3 @@
-//AvailableInformation.jsx
-
 import React, { useState, useEffect } from 'react';
 import FactBox from './FactBox';
 import './AvailableInformation.css';
@@ -8,8 +6,17 @@ function AvailableInformation({ isInfoButtonClicked, isNarrativeButtonClicked, f
   const [factBoxes, setFactBoxes] = useState([]); // State to store generated fact boxes
   const [isButtonClicked, setIsButtonClicked] = useState(false); // State to track button click
   const [selectedBoxes, setSelectedBoxes] = useState([]); // State to store the index of selected fact boxes
+  const [unselectedFactBoxes, setUnselectedFactBoxes] = useState([]); // State to store unselected fact boxes
   const [selectedFactBoxes, setSelectedFactBoxes] = useState([]); // State to store the selected fact boxes including their text and indices
 
+  useEffect(() => {
+    // Initialize unselectedFactBoxes with all fact boxes
+    const initialUnselectedFactBoxes = factTexts.map((factText, index) => ({
+      index,
+      text: factText,
+    }));
+    setUnselectedFactBoxes(initialUnselectedFactBoxes);
+  }, [factTexts]);
 
   // Function to generate fact boxes based on the data source
   const generateFactBoxes = () => {
@@ -44,11 +51,21 @@ function AvailableInformation({ isInfoButtonClicked, isNarrativeButtonClicked, f
   // Handle Generate Narrative Button Click
   useEffect(() => {
     if (isNarrativeButtonClicked) {
-      console.log("Generate Narrative button clicked and signal sent to AvailableInformation!");
+
+      // Calculate unselectedFactBoxes based on selectedBoxes
+      const updatedUnselectedFactBoxes = factTexts
+        .map((factText, index) => ({
+          index,
+          text: factText,
+        }))
+        .filter((box) => !selectedBoxes.includes(box.index));
+
+      setUnselectedFactBoxes(updatedUnselectedFactBoxes);
+
       // Call the callback function to transfer selected fact boxes
-      onGenerateNarrative(selectedFactBoxes);
+      onGenerateNarrative(selectedFactBoxes, unselectedFactBoxes);
     }
-  }, [isNarrativeButtonClicked, onGenerateNarrative, selectedFactBoxes]);
+  }, [isNarrativeButtonClicked, onGenerateNarrative, selectedFactBoxes, factTexts, selectedBoxes]);
 
   // Function to handle fact box click and toggle selection
   const handleBoxClick = (index) => {
@@ -63,8 +80,6 @@ function AvailableInformation({ isInfoButtonClicked, isNarrativeButtonClicked, f
             index,
             text: factTexts[index],
           }]);
-  //        console.log(`Fact box ${index} selected.`);
-  //        console.log("Selected Fact Boxes:", selectedFactBoxes);
         } else {
           // Box is selected, remove it from the selectedBoxes array
           setSelectedBoxes((prevSelectedBoxes) =>
@@ -74,8 +89,6 @@ function AvailableInformation({ isInfoButtonClicked, isNarrativeButtonClicked, f
           setSelectedFactBoxes((prevSelectedFactBoxes) =>
             prevSelectedFactBoxes.filter((item) => item.index !== index)
           );
- //         console.log(`Fact box ${index} deselected.`);
-  //        console.log("Selected Fact Boxes:", selectedFactBoxes);
         }
 
         // Update the selected box count in the parent component
@@ -108,6 +121,8 @@ function AvailableInformation({ isInfoButtonClicked, isNarrativeButtonClicked, f
           <FactBox text={factTexts[index]} /> {/* Pass the text to FactBox */}
         </div>
       ))}
+
+      {/* You can now use the unselectedFactBoxes state for your requirements */}
     </div>
   );
 }

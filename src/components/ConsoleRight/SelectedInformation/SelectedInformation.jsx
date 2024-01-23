@@ -7,7 +7,7 @@ import SelectedFactBox from './SelectedFactBox'; // Import the SelectedFactBox c
 function SelectedInformation({ selectedFactBoxes }) {
   return (
     <div className="selected-information">
-        <h3 className="info-title">Selected Information</h3>
+        <h3 className="info-title">YOUR NARRATIVE</h3>
        <div className="fact-boxes">
         {selectedFactBoxes.map((factBox, index) => (
           <SelectedFactBox key={index} text={factBox.text} />

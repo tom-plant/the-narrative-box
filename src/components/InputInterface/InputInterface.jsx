@@ -14,6 +14,8 @@ function InputInterface({ showConsoleRight, showConsoleLeft, factTexts, onReceiv
   const [selectedBoxCount, setSelectedBoxCount] = useState(0); // State to track selected box count
   const [remainingFacts, setRemainingFacts] = useState(null); // State to track when fact generation is exhausted
   const [selectedFactBoxes, setSelectedFactBoxes] = useState([]); // State to store selected fact boxes from AvailableInformation
+  const [unselectedFactBoxes, setUnselectedFactBoxes] = useState([]); // State to store unselected fact boxes from AvailableInformation
+
 
 // Function to handle remainingFactCount received from AvailableInformation
   const handleRemainingFactCount = (count) => {
@@ -56,10 +58,10 @@ const handleBoxSelectionChange = (count) => {
   };
 
  // Callback function to receive selected fact boxes
-  const receiveSelectedFactBoxes = (selectedFactBoxes) => {
-    console.log("Received selected fact boxes:", selectedFactBoxes);
+  const receiveSelectedFactBoxes = (selectedFactBoxes, unselectedFactBoxes) => {
+    console.log("Received selected fact boxes:", selectedFactBoxes, "Received unselected fact boxes:", unselectedFactBoxes);
     // You can use the prop `onReceiveSelectedFactBoxes` for this purpose
-    onReceiveSelectedFactBoxes(selectedFactBoxes);
+    onReceiveSelectedFactBoxes(selectedFactBoxes, unselectedFactBoxes);
   };
 
   return (
