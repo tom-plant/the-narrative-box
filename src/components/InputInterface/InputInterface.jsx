@@ -13,17 +13,13 @@ function InputInterface({ showConsoleRight, showConsoleLeft, factTexts, onReceiv
   const [isNarrativeButtonClicked, setNarrativeButtonClicked] = useState(false); // State to track the Generate Narrative button click
   const [selectedBoxCount, setSelectedBoxCount] = useState(0); // State to track selected box count
   const [remainingFacts, setRemainingFacts] = useState(null); // State to track when fact generation is exhausted
-  const [selectedFactBoxes, setSelectedFactBoxes] = useState([]); // State to store selected fact boxes from AvailableInformation
-  const [unselectedFactBoxes, setUnselectedFactBoxes] = useState([]); // State to store unselected fact boxes from AvailableInformation
 
 
 
 // Function to handle remainingFactCount received from AvailableInformation
   const handleRemainingFactCount = (count) => {
     // Calculate the number of revealed boxes
-    console.log("Remaining Facts II:", count);
     const revealedBoxCount = 30 - count;
-    console.log("Generated Facts II:", revealedBoxCount);
     // Set the remaining facts count in the parent's state
     setRemainingFacts(count);
     getRevealedBoxCount(revealedBoxCount); 
@@ -54,7 +50,7 @@ const handleBoxSelectionChange = (count) => {
 
 
 // Generate Narrative Button Click 
-  const unrenderSelectedBoxes = () => {
+  const PassSelectedBoxes = () => {
     setNarrativeButtonClicked(true); // Set the state to signal the button click
  // Automatically reset isNarrativeButtonClicked to false after a delay 
     setTimeout(() => {
@@ -89,7 +85,7 @@ const handleBoxSelectionChange = (count) => {
         <NarrativeButton
           showConsoleRight={showConsoleRight} 
           showConsoleLeft={showConsoleLeft}
-          unrenderSelectedBoxes={unrenderSelectedBoxes} // Pass the function to NarrativeButton
+          PassSelectedBoxes={PassSelectedBoxes} // Pass the function to NarrativeButton
         />
       )}
     </div>

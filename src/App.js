@@ -105,6 +105,7 @@ function App() {
           revealedBoxCount={revealedBoxCount}
           factTexts={factTexts}
           isGPTButtonClicked={isGPTButtonClicked} // Pass the state as a prop
+          isConsoleLeftVisible={isConsoleLeftVisible}
           />}
         <InputInterface
           showConsoleRight={showConsoleRight} // callback function
