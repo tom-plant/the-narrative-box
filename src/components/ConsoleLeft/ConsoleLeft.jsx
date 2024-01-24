@@ -11,6 +11,7 @@ function ConsoleLeft({ selectedFactBoxes, unselectedFactBoxes, revealedBoxCount,
   const numberOfRevealedUnselected = numberOfRevealedBoxes - numberOfSelectedBoxes; // Calculate the number of revealed and unselected boxes
   const [showAutoNarrative, setShowAutoNarrative] = useState(false); // State to control the visibility of AutoNarrativeBox
 
+// need to replace consoleleftvisibile conditional with something more meaningful 
 
   let finalFactBoxes = [];
 
