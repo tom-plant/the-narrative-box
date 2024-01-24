@@ -7,15 +7,15 @@ import GPTButton from './GPTButton';
 import NarrativeBox from './NarrativeBox'; 
 
 
-function ConsoleRight({ selectedFactBoxes }) { // Pass selectedFactBoxes as a prop
+function ConsoleRight({ selectedFactBoxes, onGPTButtonClick }) { // Pass selectedFactBoxes as a prop
   const [showNarrative, setShowNarrative] = useState(false); // State to control the visibility of NarrativeBox
 
   const handleGPTButton = () => {
     // Trigger backend actions here
-    // You can send a signal or make API requests to the backend
-    // Example: Send a signal to the backend
-    console.log("Generate Narrative button clicked! Sending signal to the backend...");
-
+    // console.log("Generate Narrative button clicked! Sending signal to the backend...");
+  if (onGPTButtonClick) {
+    onGPTButtonClick();
+  }
   // Set the state to reveal the NarrativeBox component
   setShowNarrative(true);
   };

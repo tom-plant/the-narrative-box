@@ -7,7 +7,7 @@ import AvailableInformation from './AvailableInformation/AvailableInformation';
 import NarrativeButton from './NarrativeButton';
 import './InputInterface.css';
 
-function InputInterface({ showConsoleRight, showConsoleLeft, factTexts, onReceiveSelectedFactBoxes }) {
+function InputInterface({ showConsoleRight, showConsoleLeft, factTexts, onReceiveSelectedFactBoxes, getRevealedBoxCount }) {
   const [isInfoButtonClicked, setIsInfoButtonClicked] = useState(false); // State to track Generate Information button click
   const [buttonDisabled, setButtonDisabled] = useState(false); // State to disable the Generate Information button
   const [isNarrativeButtonClicked, setNarrativeButtonClicked] = useState(false); // State to track the Generate Narrative button click
@@ -17,11 +17,16 @@ function InputInterface({ showConsoleRight, showConsoleLeft, factTexts, onReceiv
   const [unselectedFactBoxes, setUnselectedFactBoxes] = useState([]); // State to store unselected fact boxes from AvailableInformation
 
 
+
 // Function to handle remainingFactCount received from AvailableInformation
   const handleRemainingFactCount = (count) => {
+    // Calculate the number of revealed boxes
+    console.log("Remaining Facts II:", count);
+    const revealedBoxCount = 30 - count;
+    console.log("Generated Facts II:", revealedBoxCount);
     // Set the remaining facts count in the parent's state
     setRemainingFacts(count);
-    console.log("Remaining Facts:", count);
+    getRevealedBoxCount(revealedBoxCount); 
   };
   
 // Generate Information Button
@@ -59,7 +64,7 @@ const handleBoxSelectionChange = (count) => {
 
  // Callback function to receive selected fact boxes
   const receiveSelectedFactBoxes = (selectedFactBoxes, unselectedFactBoxes) => {
-    console.log("Received selected fact boxes:", selectedFactBoxes, "Received unselected fact boxes:", unselectedFactBoxes);
+  //  console.log("Received selected fact boxes:", selectedFactBoxes, "Received unselected fact boxes:", unselectedFactBoxes);
     // You can use the prop `onReceiveSelectedFactBoxes` for this purpose
     onReceiveSelectedFactBoxes(selectedFactBoxes, unselectedFactBoxes);
   };

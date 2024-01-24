@@ -47,17 +47,23 @@ function App() {
   const [isConsoleLeftVisible, setConsoleLeftVisible] = useState(false);
   const [selectedFactBoxes, setSelectedFactBoxes] = useState([]);
   const [unselectedFactBoxes, setUnSelectedFactBoxes] = useState([]);
+  const [revealedBoxCount, setRevealedBoxCount] = useState(0); // Initialize with 0
+  const [isGPTButtonClicked, setIsGPTButtonClicked] = useState(false);
 
 
   // Console Visibility
   const showConsoleRight = () => {
+    console.log('showConsoleRight called');
     setConsoleRightVisible(true);
   };
   const showConsoleLeft = () => {
+    console.log('showConsoleLeft called');
     setConsoleLeftVisible(true);
   };
 
+  // Selected and Unselected Box Data
   const receiveSelectedFactBoxes = (selectedFactBoxes, unselectedFactBoxes) => {
+    console.log('receiveSelectedFactBoxes called');
     setSelectedFactBoxes(selectedFactBoxes);
     setUnSelectedFactBoxes(unselectedFactBoxes);
 
@@ -70,8 +76,23 @@ function App() {
         setUnSelectedFactBoxes([]);
       }
 
-    console.log("Received selected fact boxes in App.js:", selectedFactBoxes, "and unselected fact boxes in App.js", unselectedFactBoxes); // Add this console log
+//     console.log("Received selected fact boxes in App.js:", selectedFactBoxes, "and unselected fact boxes in App.js", unselectedFactBoxes); // Add this console log
+    };
+
+    const getRevealedBoxCount = (count) => {
+      // This function can now receive the revealedBoxCount from InputInterface
+      setRevealedBoxCount(count);
+      console.log('getRevealedBoxCount called with count:', revealedBoxCount);
+        //  console.log("Revealed Box Count in App.js:", count);
+    };
+
+    const handleGPTButtonClick = () => {
+    // Handle the GPTButton click event here
+    // You can send a prop or perform any necessary actions
+    setIsGPTButtonClicked(true);
+    console.log("GPTButton clicked in App.js");
   };
+  
 
 
   return (
@@ -81,14 +102,21 @@ function App() {
         {isConsoleLeftVisible && <ConsoleLeft 
           unselectedFactBoxes={unselectedFactBoxes}
           selectedFactBoxes={selectedFactBoxes}
+          revealedBoxCount={revealedBoxCount}
+          factTexts={factTexts}
+          isGPTButtonClicked={isGPTButtonClicked} // Pass the state as a prop
           />}
         <InputInterface
           showConsoleRight={showConsoleRight} // callback function
           showConsoleLeft={showConsoleLeft} // callback function
           factTexts={factTexts} // pass array of fact box texts as a prop
           onReceiveSelectedFactBoxes={receiveSelectedFactBoxes} // Pass the callback function
+          getRevealedBoxCount={getRevealedBoxCount}
         />
-        {isConsoleRightVisible && <ConsoleRight selectedFactBoxes={selectedFactBoxes} />}
+        {isConsoleRightVisible && <ConsoleRight 
+        selectedFactBoxes={selectedFactBoxes} 
+        onGPTButtonClick={handleGPTButtonClick} // Pass the callback function
+        />}
       </div>
     </div>
   );

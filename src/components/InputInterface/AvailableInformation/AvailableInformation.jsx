@@ -22,21 +22,22 @@ function AvailableInformation({ isInfoButtonClicked, isNarrativeButtonClicked, f
   const generateFactBoxes = () => {
     // Check if the "Generate Information" button is clicked and there are more facts to generate
     if (isInfoButtonClicked && factBoxes.length < factTexts.length) {
-      const remainingFactCount = factTexts.length - factBoxes.length;
-      // Pass to parent component
-      onRemainingFactCount(remainingFactCount);
-      const numToGenerate = Math.min(6, remainingFactCount); // Generate up to 6 at a time
-
       // Create FactBox components from the fact texts in order
+      const numToGenerate = Math.min(6, factTexts.length - factBoxes.length); // Calculate numToGenerate based on remaining facts
       const generatedFactBoxes = factTexts
         .slice(factBoxes.length, factBoxes.length + numToGenerate)
         .map((factText, index) => ({
           index: factBoxes.length + index, // Store the index
           text: factText, // Store the text
         }));
-
+  
       // Append the newly generated fact boxes to the existing ones
       setFactBoxes((prevFactBoxes) => [...prevFactBoxes, ...generatedFactBoxes]);
+  
+      // Calculate remainingFactCount after appending
+      const remainingFactCount = factTexts.length - factBoxes.length - numToGenerate;
+      // Pass to parent component
+      onRemainingFactCount(remainingFactCount);
     }
   };
 
