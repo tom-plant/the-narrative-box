@@ -7,7 +7,7 @@ import AvailableInformation from './AvailableInformation/AvailableInformation';
 import NarrativeButton from './NarrativeButton';
 import './InputInterface.css';
 
-function InputInterface({ showConsoleRight, showConsoleLeft, factTexts, onReceiveSelectedFactBoxes, getRevealedBoxCount }) {
+function InputInterface({ showConsoleRight, showConsoleLeft, factTexts, onReceiveSelectedFactBoxes, getRevealedBoxCount, onNarrativeButtonClick }) {
   const [isInfoButtonClicked, setIsInfoButtonClicked] = useState(false); // State to track Generate Information button click
   const [buttonDisabled, setButtonDisabled] = useState(false); // State to disable the Generate Information button
   const [isNarrativeButtonClicked, setNarrativeButtonClicked] = useState(false); // State to track the Generate Narrative button click
@@ -53,6 +53,8 @@ const handleBoxSelectionChange = (count) => {
   const PassSelectedBoxes = () => {
     setNarrativeButtonClicked(true); // Set the state to signal the button click
  // Automatically reset isNarrativeButtonClicked to false after a delay 
+    onNarrativeButtonClick(true);     // Call the callback function and pass isNarrativeButtonClicked
+
     setTimeout(() => {
       setNarrativeButtonClicked(false);
     }, 100); // Adjust the delay duration as needed

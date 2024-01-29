@@ -101,6 +101,7 @@ function AvailableInformation({ isInfoButtonClicked, isNarrativeButtonClicked, f
   // Calculate the current number of selected boxes
   const selectedBoxCount = selectedBoxes.length;
 
+
   return (
     <div className="available-information">
       {isButtonClicked && (

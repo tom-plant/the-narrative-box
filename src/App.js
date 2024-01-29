@@ -49,6 +49,7 @@ function App() {
   const [unselectedFactBoxes, setUnSelectedFactBoxes] = useState([]);
   const [revealedBoxCount, setRevealedBoxCount] = useState(0); // Initialize with 0
   const [isGPTButtonClicked, setIsGPTButtonClicked] = useState(false);
+  const [isNarrativeButtonClicked, setIsNarrativeButtonClicked] = useState(false);
 
 
   // Console Visibility
@@ -61,23 +62,26 @@ function App() {
     setConsoleLeftVisible(true);
   };
 
-  // Selected and Unselected Box Data
   const receiveSelectedFactBoxes = (selectedFactBoxes, unselectedFactBoxes) => {
     console.log('receiveSelectedFactBoxes called');
-    setSelectedFactBoxes(selectedFactBoxes);
-    setUnSelectedFactBoxes(unselectedFactBoxes);
-
-      // Check if unselectedFactBoxes is an array
-      if (Array.isArray(unselectedFactBoxes)) {
-        setUnSelectedFactBoxes(unselectedFactBoxes);
-      } else {
-        console.error("unselectedFactBoxes is not an array!");
-        // You can handle this case as needed, such as setting it to an empty array
-        setUnSelectedFactBoxes([]);
+    
+    // Use functional updates to avoid depending on the previous state
+    setSelectedFactBoxes((prevSelectedFactBoxes) => {
+      // Update only if the new state is different from the previous state
+      if (prevSelectedFactBoxes !== selectedFactBoxes) {
+        return selectedFactBoxes;
       }
-
-//     console.log("Received selected fact boxes in App.js:", selectedFactBoxes, "and unselected fact boxes in App.js", unselectedFactBoxes); // Add this console log
-    };
+      return prevSelectedFactBoxes;
+    });
+  
+    setUnSelectedFactBoxes((prevUnselectedFactBoxes) => {
+      // Update only if the new state is different from the previous state
+      if (prevUnselectedFactBoxes !== unselectedFactBoxes) {
+        return unselectedFactBoxes;
+      }
+      return prevUnselectedFactBoxes;
+    });
+  };
 
     const getRevealedBoxCount = (count) => {
       // This function can now receive the revealedBoxCount from InputInterface
@@ -92,6 +96,17 @@ function App() {
     setIsGPTButtonClicked(true);
     console.log("GPTButton clicked in App.js");
   };
+
+  // Callback function to handle the "Generate Narrative" button click
+  const handleNarrativeButtonClick = (isClicked) => {
+    // Perform actions based on the button state
+    if (isClicked) {
+      // The button has been clicked, you can use it for your useEffect block
+      setIsNarrativeButtonClicked(true);
+      console.log("Generate Narrative button clicked in App.js");
+    }
+  };
+
   
 
 
@@ -106,6 +121,7 @@ function App() {
           factTexts={factTexts}
           isGPTButtonClicked={isGPTButtonClicked} // Pass the state as a prop
           isConsoleLeftVisible={isConsoleLeftVisible}
+          isNarrativeButtonClicked={isNarrativeButtonClicked} // Pass the state as a prop
           />}
         <InputInterface
           showConsoleRight={showConsoleRight} // callback function
@@ -113,6 +129,7 @@ function App() {
           factTexts={factTexts} // pass array of fact box texts as a prop
           onReceiveSelectedFactBoxes={receiveSelectedFactBoxes} // Pass the callback function
           getRevealedBoxCount={getRevealedBoxCount}
+          onNarrativeButtonClick={handleNarrativeButtonClick} // Pass the callback function
         />
         {isConsoleRightVisible && <ConsoleRight 
         selectedFactBoxes={selectedFactBoxes} 
