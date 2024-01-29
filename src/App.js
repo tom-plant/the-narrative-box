@@ -63,7 +63,6 @@ function App() {
   };
 
   const receiveSelectedFactBoxes = (selectedFactBoxes, unselectedFactBoxes) => {
-    console.log('receiveSelectedFactBoxes called');
     
     // Use functional updates to avoid depending on the previous state
     setSelectedFactBoxes((prevSelectedFactBoxes) => {
@@ -86,7 +85,6 @@ function App() {
     const getRevealedBoxCount = (count) => {
       // This function can now receive the revealedBoxCount from InputInterface
       setRevealedBoxCount(count);
-      console.log('getRevealedBoxCount called with count:', revealedBoxCount);
         //  console.log("Revealed Box Count in App.js:", count);
     };
 

@@ -14,6 +14,8 @@
 .available-information-title {
   font-family: 'Pixelify Sans', sans-serif;
   font-size: 20px;
+  margin-top: 20px; /* Adjust the margin-top value to create space */
+  margin-bottom: 20px;
 }
 
 .counter {
@@ -29,7 +31,6 @@
 .select-text {
   position: absolute; 
   top: 0px; 
-  left: 19%; /* Center workaround I may need to fix */
   font-size: 13px; 
   color: #ffffff; 
   padding: 5px; 
@@ -37,3 +38,16 @@
   text-align: center; 
 }
 
+/* Media query for screens with a maximum width of 600px */
+@media screen and (max-width: 1165px) {
+  .select-text {
+    width: 70%; /* Set the width as needed for two lines of text */
+    margin: 0 auto; /* Center-align the text */
+    text-align: left;
+    white-space: nowrap; /* Prevent text from wrapping to multiple lines */
+    overflow: hidden; /* Hide any overflow */
+    text-overflow: ellipsis; /* Show ellipsis (...) for long text */
+    max-width: 100%; /* Ensure the text doesn't overflow horizontally */
+  
+  }
+}
