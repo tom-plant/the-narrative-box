@@ -3,13 +3,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './GPTButton.css';
 
-function GPTButton({ onClick, selectedFactBoxes }) {
+function GPTButton({ onClick, selectedFactBoxes, pulsingState }) {
   const [isPulsing, setIsPulsing] = useState(false); // State to control the animation
   const previousSelectedFactBoxes = useRef([]); // Ref to keep track of the previous selectedFactBoxes array
-
+  
   useEffect(() => {
     // Ensure selectedFactBoxes is an array before comparing
-    if (Array.isArray(selectedFactBoxes)) {
+    if (Array.isArray(selectedFactBoxes) && !pulsingState) {
       // Check if the current selectedFactBoxes are different from the previous ones
       const areArraysDifferent = !arraysAreEqual(
         previousSelectedFactBoxes.current,
@@ -28,7 +28,7 @@ function GPTButton({ onClick, selectedFactBoxes }) {
       // Update the previousSelectedFactBoxes ref with a copy of the current selectedFactBoxes array
       previousSelectedFactBoxes.current = [...selectedFactBoxes];
     }
-  }, [selectedFactBoxes]);
+  }, [selectedFactBoxes, pulsingState]);
 
   // Helper function to check if two arrays are equal
   const arraysAreEqual = (arr1, arr2) => {
@@ -47,6 +47,12 @@ function GPTButton({ onClick, selectedFactBoxes }) {
       onClick();
     }
   };
+
+  useEffect(() => {
+    if (pulsingState) {
+      setIsPulsing(false); // Set to false as soon as isPulsing becomes false
+    }
+  }, [pulsingState]);
 
   return (
     <button

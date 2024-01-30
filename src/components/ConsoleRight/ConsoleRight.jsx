@@ -7,8 +7,9 @@ import GPTButton from './GPTButton';
 import NarrativeBox from './NarrativeBox'; 
 
 
-function ConsoleRight({ selectedFactBoxes, onGPTButtonClick }) { // Pass selectedFactBoxes as a prop
+function ConsoleRight({ selectedFactBoxes, onGPTButtonClick, pulsingState }) { // Pass selectedFactBoxes as a prop
   const [showNarrative, setShowNarrative] = useState(false); // State to control the visibility of NarrativeBox
+
 
   const handleGPTButton = () => {
     // Trigger backend actions here
@@ -27,6 +28,7 @@ function ConsoleRight({ selectedFactBoxes, onGPTButtonClick }) { // Pass selecte
       <GPTButton 
         onClick={handleGPTButton} 
         selectedFactBoxes={selectedFactBoxes}
+        pulsingState={pulsingState}
       />
        {/* Conditionally render NarrativeBox */}
        {showNarrative && <NarrativeBox />}

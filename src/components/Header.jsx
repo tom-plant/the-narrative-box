@@ -1,10 +1,12 @@
 import React from 'react';
-import './Header.css'; // Create a separate CSS file for the header
+import ResetButton from './ResetButton'; // Import the ResetButton component
+import './Header.css';
 
-function Header() {
+function Header({ isGPTButtonClicked }) {
   return (
     <header className="header">
       <h1 className="header-title">The Narrative Box</h1>
+      {isGPTButtonClicked && <ResetButton />} {/* Conditionally render ResetButton */}
     </header>
   );
 }

@@ -50,6 +50,7 @@ function App() {
   const [revealedBoxCount, setRevealedBoxCount] = useState(0); // Initialize with 0
   const [isGPTButtonClicked, setIsGPTButtonClicked] = useState(false);
   const [isNarrativeButtonClicked, setIsNarrativeButtonClicked] = useState(false);
+  const [pulsingState, setPulsingState] = useState(false); // State to track pulsing state
 
 
   // Console Visibility
@@ -64,7 +65,6 @@ function App() {
 
   const receiveSelectedFactBoxes = (selectedFactBoxes, unselectedFactBoxes) => {
     
-    // Use functional updates to avoid depending on the previous state
     setSelectedFactBoxes((prevSelectedFactBoxes) => {
       // Update only if the new state is different from the previous state
       if (prevSelectedFactBoxes !== selectedFactBoxes) {
@@ -72,7 +72,7 @@ function App() {
       }
       return prevSelectedFactBoxes;
     });
-  
+
     setUnSelectedFactBoxes((prevUnselectedFactBoxes) => {
       // Update only if the new state is different from the previous state
       if (prevUnselectedFactBoxes !== unselectedFactBoxes) {
@@ -83,14 +83,11 @@ function App() {
   };
 
     const getRevealedBoxCount = (count) => {
-      // This function can now receive the revealedBoxCount from InputInterface
       setRevealedBoxCount(count);
         //  console.log("Revealed Box Count in App.js:", count);
     };
 
     const handleGPTButtonClick = () => {
-    // Handle the GPTButton click event here
-    // You can send a prop or perform any necessary actions
     setIsGPTButtonClicked(true);
     // console.log("GPTButton clicked in App.js");
   };
@@ -99,18 +96,24 @@ function App() {
   const handleNarrativeButtonClick = (isClicked) => {
     // Perform actions based on the button state
     if (isClicked) {
-      // The button has been clicked, you can use it for your useEffect block
       setIsNarrativeButtonClicked(true);
       // console.log("Generate Narrative button clicked in App.js");
     }
   };
 
-  
+    // Callback function to receive pulsing state change from InputInterface
+    const handlePulsingStateChange = (isPulsing) => {
+      // Handle the pulsing state change in the App component
+      // console.log('Pulsing State Changed (App.js):', isPulsing);
+      setPulsingState(isPulsing);
+    };
 
 
   return (
     <div className="App">
-      <Header />
+      <Header 
+        isGPTButtonClicked={isGPTButtonClicked} // Pass the state as a prop
+      />
       <div className="container">
         {isConsoleLeftVisible && <ConsoleLeft 
           unselectedFactBoxes={unselectedFactBoxes}
@@ -128,10 +131,12 @@ function App() {
           onReceiveSelectedFactBoxes={receiveSelectedFactBoxes} // Pass the callback function
           getRevealedBoxCount={getRevealedBoxCount}
           onNarrativeButtonClick={handleNarrativeButtonClick} // Pass the callback function
+          onPulsingStateChange={handlePulsingStateChange} // Pass the callback function
         />
         {isConsoleRightVisible && <ConsoleRight 
         selectedFactBoxes={selectedFactBoxes} 
         onGPTButtonClick={handleGPTButtonClick} // Pass the callback function
+        pulsingState={pulsingState} // Pass the pulsing state as a prop
         />}
       </div>
     </div>

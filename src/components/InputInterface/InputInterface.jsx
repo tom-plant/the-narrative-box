@@ -7,15 +7,13 @@ import AvailableInformation from './AvailableInformation/AvailableInformation';
 import NarrativeButton from './NarrativeButton';
 import './InputInterface.css';
 
-function InputInterface({ showConsoleRight, showConsoleLeft, factTexts, onReceiveSelectedFactBoxes, getRevealedBoxCount, onNarrativeButtonClick }) {
+function InputInterface({ showConsoleRight, showConsoleLeft, factTexts, onReceiveSelectedFactBoxes, getRevealedBoxCount, onNarrativeButtonClick, onPulsingStateChange }) {
   const [isInfoButtonClicked, setIsInfoButtonClicked] = useState(false); // State to track Generate Information button click
   const [buttonDisabled, setButtonDisabled] = useState(false); // State to disable the Generate Information button
   const [isNarrativeButtonClicked, setNarrativeButtonClicked] = useState(false); // State to track the Generate Narrative button click
   const [selectedBoxCount, setSelectedBoxCount] = useState(0); // State to track selected box count
   const [remainingFacts, setRemainingFacts] = useState(null); // State to track when fact generation is exhausted
   const [selectedfactboxes, setSelectedFactBoxes] = useState([]); // State to track selected fact boxes
-
-
 
 
 // Function to handle remainingFactCount received from AvailableInformation
@@ -75,6 +73,15 @@ const handleBoxSelectionChange = (count) => {
     setSelectedFactBoxes(newSelectedFactBoxes);
   };
 
+    // Callback function to receive pulsing state change from NarrativeButton
+    const handlePulsingStateChange = (isPulsing) => {
+      // Handle the pulsing state change in the parent component
+      // console.log('Pulsing State Changed:', isPulsing);
+      // You can pass this state change further up the component tree as needed
+      onPulsingStateChange(isPulsing);
+    };
+  
+
   return (
     <div className="input-interface">
       <TextEntryBox />
@@ -98,6 +105,7 @@ const handleBoxSelectionChange = (count) => {
           showConsoleLeft={showConsoleLeft}
           onNarrativeClick={handleNarrativeClick} // Pass the function to NarrativeButton
           selectedFactBoxes={selectedfactboxes} // Pass the selectedFactBoxes prop
+          onPulsingStateChange={handlePulsingStateChange} // Pass the callback function
         />
       )}
     </div>
