@@ -16,9 +16,9 @@ function GPTButton({ onClick, selectedFactBoxes }) {
         selectedFactBoxes
       );
 
-      console.log('Previous:', previousSelectedFactBoxes.current);
-      console.log('Current:', selectedFactBoxes);
-      console.log('Are arrays different:', areArraysDifferent);
+      // console.log('Previous:', previousSelectedFactBoxes.current);
+      // console.log('Current:', selectedFactBoxes);
+      // console.log('Are arrays different:', areArraysDifferent);
 
       if (areArraysDifferent) {
         // Trigger the animation class when there's a change

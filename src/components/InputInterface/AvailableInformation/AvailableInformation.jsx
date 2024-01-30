@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import FactBox from './FactBox';
 import './AvailableInformation.css';
 
-function AvailableInformation({ isInfoButtonClicked, isNarrativeButtonClicked, factTexts, onRemainingFactCount, onUpdateSelectedBoxCount, onGenerateNarrative }) {
+function AvailableInformation({ isInfoButtonClicked, isNarrativeButtonClicked, factTexts, onRemainingFactCount, onUpdateSelectedBoxCount, onGenerateNarrative, onSelectedFactBoxesChange }) {
   const [factBoxes, setFactBoxes] = useState([]); // State to store generated fact boxes
   const [isButtonClicked, setIsButtonClicked] = useState(false); // State to track button click
   const [selectedBoxes, setSelectedBoxes] = useState([]); // State to store the index of selected fact boxes
   const [unselectedFactBoxes, setUnselectedFactBoxes] = useState([]); // State to store unselected fact boxes
   const [selectedFactBoxes, setSelectedFactBoxes] = useState([]); // State to store the selected fact boxes including their text and indices
+  const prevSelectedFactBoxesRef = useRef(selectedFactBoxes);
+
 
   useEffect(() => {
     // Initialize unselectedFactBoxes with all fact boxes
@@ -102,6 +104,16 @@ function AvailableInformation({ isInfoButtonClicked, isNarrativeButtonClicked, f
   // Calculate the current number of selected boxes
   const selectedBoxCount = selectedBoxes.length;
 
+  // Watch for changes in selectedFactBoxes and invoke the callback function
+  useEffect(() => {
+    // Compare the current selectedFactBoxes with the previous state
+    if (prevSelectedFactBoxesRef.current !== selectedFactBoxes) {
+      onSelectedFactBoxesChange(selectedFactBoxes);
+
+      // Update the ref to the current selectedFactBoxes
+      prevSelectedFactBoxesRef.current = selectedFactBoxes;
+    }
+  }, [selectedFactBoxes, onSelectedFactBoxesChange]);
 
   return (
     <div className="available-information">

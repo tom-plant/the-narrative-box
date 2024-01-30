@@ -1,16 +1,19 @@
 // NarrativeButton.jsx
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './NarrativeButton.css';
 
-function NarrativeButton({ showConsoleRight, showConsoleLeft, PassSelectedBoxes }) {
+function NarrativeButton({ showConsoleRight, showConsoleLeft, onNarrativeClick, selectedFactBoxes }) {
   const [isPulsing, setIsPulsing] = useState(false); // State to control the animation
+  const prevSelectedFactBoxesRef = useRef(selectedFactBoxes);
+
+  console.log('here',selectedFactBoxes)
 
 // Reveal Left and Right Consoles on click
   const handleNarrativeClick = () => {
     showConsoleRight(); // Call the callback function to show ConsoleRight
     showConsoleLeft(); // Call the callback function to show ConsoleLeft
-    PassSelectedBoxes();
+    onNarrativeClick();
 
       // Delay the animation stop by 1 second (adjust the duration as needed)
       setTimeout(() => {
@@ -22,11 +25,15 @@ function NarrativeButton({ showConsoleRight, showConsoleLeft, PassSelectedBoxes 
 
   useEffect(() => {
     console.log('PassSelectedBoxes prop updated');
-    // You can add your animation logic here or any other action you want to perform
-    // When PassSelectedBoxes is called, start or continue the animation
-    setIsPulsing(true);
-    console.log('Animation started');
-  }, [PassSelectedBoxes]);
+    if (selectedFactBoxes !== prevSelectedFactBoxesRef.current) {
+      // When PassSelectedBoxes is called, start or continue the animation
+      setIsPulsing(true);
+      console.log('Animation started');
+    }
+
+    // Update the ref with the current selectedFactBoxes value
+    prevSelectedFactBoxesRef.current = selectedFactBoxes;
+  }, [selectedFactBoxes, onNarrativeClick]);
   
   return (
     <button

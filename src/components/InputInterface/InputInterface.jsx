@@ -17,6 +17,7 @@ function InputInterface({ showConsoleRight, showConsoleLeft, factTexts, onReceiv
 
 
 
+
 // Function to handle remainingFactCount received from AvailableInformation
   const handleRemainingFactCount = (count) => {
     // Calculate the number of revealed boxes
@@ -51,7 +52,7 @@ const handleBoxSelectionChange = (count) => {
 
 
 // Generate Narrative Button Click 
-  const PassSelectedBoxes = () => {
+  const handleNarrativeClick = () => {
     setNarrativeButtonClicked(true); // Set the state to signal the button click
  // Automatically reset isNarrativeButtonClicked to false after a delay 
     onNarrativeButtonClick(true);     // Call the callback function and pass isNarrativeButtonClicked
@@ -69,12 +70,12 @@ const handleBoxSelectionChange = (count) => {
     onReceiveSelectedFactBoxes(selectedFactBoxes, unselectedFactBoxes);
   };
 
-  // Use useEffect to pass selectedfactboxes to NarrativeButton when it changes
-  useEffect(() => {
-    if (selectedfactboxes.length > 0) {
-      PassSelectedBoxes(selectedfactboxes); // Pass selectedfactboxes to NarrativeButton
-    }
-  }, [selectedfactboxes]);
+   // Callback function to update selectedFactBoxes in the parent component
+   const handleSelectedFactBoxesChange = (newSelectedFactBoxes) => {
+    setSelectedFactBoxes(newSelectedFactBoxes);
+    console.log('Selected Fact Boxes Updated:', newSelectedFactBoxes);
+    console.log('Selected Fact Boxes Updated 2:', selectedfactboxes);
+  };
 
   return (
     <div className="input-interface">
@@ -91,12 +92,14 @@ const handleBoxSelectionChange = (count) => {
         factTexts={factTexts} // Pass fact texts to AvailableInformation
         onRemainingFactCount={handleRemainingFactCount}
         onGenerateNarrative={receiveSelectedFactBoxes}
+        onSelectedFactBoxesChange={handleSelectedFactBoxesChange}
       />
       {selectedBoxCount > 2 && ( 
         <NarrativeButton
           showConsoleRight={showConsoleRight} 
           showConsoleLeft={showConsoleLeft}
-          PassSelectedBoxes={PassSelectedBoxes} // Pass the function to NarrativeButton
+          onNarrativeClick={handleNarrativeClick} // Pass the function to NarrativeButton
+          selectedFactBoxes={selectedfactboxes} // Pass the selectedFactBoxes prop
         />
       )}
     </div>
