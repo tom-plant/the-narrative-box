@@ -1,6 +1,6 @@
 // InputInterface.jsx
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TextEntryBox from './TextEntryBox';
 import InfoButton from './InfoButton';
 import AvailableInformation from './AvailableInformation/AvailableInformation';
@@ -13,6 +13,7 @@ function InputInterface({ showConsoleRight, showConsoleLeft, factTexts, onReceiv
   const [isNarrativeButtonClicked, setNarrativeButtonClicked] = useState(false); // State to track the Generate Narrative button click
   const [selectedBoxCount, setSelectedBoxCount] = useState(0); // State to track selected box count
   const [remainingFacts, setRemainingFacts] = useState(null); // State to track when fact generation is exhausted
+  const [selectedfactboxes, setSelectedFactBoxes] = useState([]); // State to track selected fact boxes
 
 
 
@@ -57,15 +58,23 @@ const handleBoxSelectionChange = (count) => {
 
     setTimeout(() => {
       setNarrativeButtonClicked(false);
-    }, 100); // Adjust the delay duration as needed
+    }, .5); // Adjust the delay duration as needed
   };
 
  // Callback function to receive selected fact boxes
   const receiveSelectedFactBoxes = (selectedFactBoxes, unselectedFactBoxes) => {
   //  console.log("Received selected fact boxes:", selectedFactBoxes, "Received unselected fact boxes:", unselectedFactBoxes);
     // You can use the prop `onReceiveSelectedFactBoxes` for this purpose
+    setSelectedFactBoxes(selectedFactBoxes); // Update the selectedfactboxes state when it changes
     onReceiveSelectedFactBoxes(selectedFactBoxes, unselectedFactBoxes);
   };
+
+  // Use useEffect to pass selectedfactboxes to NarrativeButton when it changes
+  useEffect(() => {
+    if (selectedfactboxes.length > 0) {
+      PassSelectedBoxes(selectedfactboxes); // Pass selectedfactboxes to NarrativeButton
+    }
+  }, [selectedfactboxes]);
 
   return (
     <div className="input-interface">

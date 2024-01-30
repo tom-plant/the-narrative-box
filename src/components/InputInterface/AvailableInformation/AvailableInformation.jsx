@@ -41,7 +41,7 @@ function AvailableInformation({ isInfoButtonClicked, isNarrativeButtonClicked, f
     }
   };
 
-  // Handle generating fact boxes when the button is clicked
+  // Handle generating fact boxes when the InfoButton is clicked
   useEffect(() => {
     if (isInfoButtonClicked) {
       setIsButtonClicked(true); // Set the button click state to true when clicked
