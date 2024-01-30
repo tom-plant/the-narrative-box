@@ -52,7 +52,6 @@ function AvailableInformation({ isInfoButtonClicked, isNarrativeButtonClicked, f
   // Handle Generate Narrative Button Click
   useEffect(() => {
     if (isNarrativeButtonClicked) {
-
       // Calculate unselectedFactBoxes based on selectedBoxes
       const updatedUnselectedFactBoxes = factTexts
         .map((factText, index) => ({
@@ -61,12 +60,14 @@ function AvailableInformation({ isInfoButtonClicked, isNarrativeButtonClicked, f
         }))
         .filter((box) => !selectedBoxes.includes(box.index));
 
-      setUnselectedFactBoxes(updatedUnselectedFactBoxes);
+      // Use a functional update to avoid the infinite loop
+      setUnselectedFactBoxes((prevUnselectedFactBoxes) => updatedUnselectedFactBoxes);
 
       // Call the callback function to transfer selected fact boxes
-      onGenerateNarrative(selectedFactBoxes, unselectedFactBoxes);
+      onGenerateNarrative(selectedFactBoxes, updatedUnselectedFactBoxes);
     }
   }, [isNarrativeButtonClicked, onGenerateNarrative, selectedFactBoxes, factTexts, selectedBoxes]);
+
 
   // Function to handle fact box click and toggle selection
   const handleBoxClick = (index) => {
