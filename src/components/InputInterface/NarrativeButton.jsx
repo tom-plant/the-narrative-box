@@ -7,8 +7,6 @@ function NarrativeButton({ showConsoleRight, showConsoleLeft, onNarrativeClick, 
   const [isPulsing, setIsPulsing] = useState(false); // State to control the animation
   const prevSelectedFactBoxesRef = useRef(selectedFactBoxes);
 
-  console.log('here',selectedFactBoxes)
-
 // Reveal Left and Right Consoles on click
   const handleNarrativeClick = () => {
     showConsoleRight(); // Call the callback function to show ConsoleRight
@@ -24,9 +22,9 @@ function NarrativeButton({ showConsoleRight, showConsoleLeft, onNarrativeClick, 
 
 
   useEffect(() => {
-    console.log('PassSelectedBoxes prop updated');
+    // console.log('onNarrativeClick prop updated');
     if (selectedFactBoxes !== prevSelectedFactBoxesRef.current) {
-      // When PassSelectedBoxes is called, start or continue the animation
+      // When onNarrativeClick is called, start or continue the animation
       setIsPulsing(true);
       console.log('Animation started');
     }

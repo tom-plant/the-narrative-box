@@ -92,7 +92,7 @@ function App() {
     // Handle the GPTButton click event here
     // You can send a prop or perform any necessary actions
     setIsGPTButtonClicked(true);
-    console.log("GPTButton clicked in App.js");
+    // console.log("GPTButton clicked in App.js");
   };
 
   // Callback function to handle the "Generate Narrative" button click
@@ -101,7 +101,7 @@ function App() {
     if (isClicked) {
       // The button has been clicked, you can use it for your useEffect block
       setIsNarrativeButtonClicked(true);
-      console.log("Generate Narrative button clicked in App.js");
+      // console.log("Generate Narrative button clicked in App.js");
     }
   };
 

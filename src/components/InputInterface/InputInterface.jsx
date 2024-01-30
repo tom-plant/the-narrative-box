@@ -73,8 +73,6 @@ const handleBoxSelectionChange = (count) => {
    // Callback function to update selectedFactBoxes in the parent component
    const handleSelectedFactBoxesChange = (newSelectedFactBoxes) => {
     setSelectedFactBoxes(newSelectedFactBoxes);
-    console.log('Selected Fact Boxes Updated:', newSelectedFactBoxes);
-    console.log('Selected Fact Boxes Updated 2:', selectedfactboxes);
   };
 
   return (
