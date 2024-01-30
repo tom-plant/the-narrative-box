@@ -24,8 +24,10 @@ function ConsoleRight({ selectedFactBoxes, onGPTButtonClick }) { // Pass selecte
     <div className="console-right">
       {/* You can include the child component here */}
       <SelectedInformation selectedFactBoxes={selectedFactBoxes} />
-      <GPTButton onClick={handleGPTButton} />
-
+      <GPTButton 
+        onClick={handleGPTButton} 
+        selectedFactBoxes={selectedFactBoxes}
+      />
        {/* Conditionally render NarrativeBox */}
        {showNarrative && <NarrativeBox />}
     </div>

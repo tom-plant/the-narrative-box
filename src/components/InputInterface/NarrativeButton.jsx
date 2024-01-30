@@ -16,7 +16,7 @@ function NarrativeButton({ showConsoleRight, showConsoleLeft, PassSelectedBoxes 
       setTimeout(() => {
        setIsPulsing(false); // Stop the animation after the delay
        console.log('Animation stopped');
-  }, 500); // 1000 milliseconds (1 second) delay
+  }, 500); // delay
 };
 
 
