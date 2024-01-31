@@ -19,55 +19,49 @@ const chatGPTApiKey = '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';
 // Function to generate sub-facts using ChatGPT
 const generateSubFacts = async (userInput) => {
     try {
-      // Define the ChatGPT endpoint
-      const chatGPTUrl = 'https://api.openai.com/v1/engines/davinci-codex/completions';
-  
-      // Define the ChatGPT prompt
-      const chatGPTPrompt = `Generate 30 sub-facts about the event: ${userInput}`;
-  
-      // Make a POST request to ChatGPT
-      const chatGPTResponse = await axios.post(
-        chatGPTUrl,
-        {
-          prompt: chatGPTPrompt,
-          max_tokens: 30, // Limit the response to 30 tokens
+      const chatGPTUrl = 'https://api.openai.com/v1/chat/completions';
+
+      // Structure the payload for the ChatGPT API
+      const payload = {
+        model: "gpt-3.5-turbo", // You can choose the model you prefer
+        messages: [
+          { role: "system", content: "You are a helpful assistant." },
+          { role: "user", content: `Generate 30 sub-facts about the event: ${userInput}` }
+        ],
+      };
+
+      const chatGPTResponse = await axios.post(chatGPTUrl, payload, {
+        headers: {
+          Authorization: `Bearer ${chatGPTApiKey}`,
+          'Content-Type': 'application/json'
         },
-        {
-          headers: {
-            Authorization: `Bearer ${chatGPTApiKey}`,
-          },
-        }
-      );
-  
-      // Extract and return the sub-facts
-      const subFacts = chatGPTResponse.data.choices[0].text;
+      });
+
+      // Extract and return the generated sub-facts
+      const subFacts = chatGPTResponse.data.choices[0].message.content; // Adjust based on the actual response structure
       return subFacts;
     } catch (error) {
       console.error(error);
       throw new Error('An error occurred while generating sub-facts.');
     }
-  };
+};
+
 
 
 // Route to Handle User Input and Generate Fact Boxes
 app.post('/generate-fact-boxes', async (req, res) => {
     try {
-      // Extract the user input from the request
       const userInput = req.body.userInput;
-
-      // Log the user input to the server console
       console.log('Received user input:', userInput);
-  
-      // Generate sub-facts using ChatGPT
-      const subFacts = await generateSubFacts(userInput);
 
-      // Send a response with confirmation and sub-facts
+      const subFacts = await generateSubFacts(userInput);
       res.json({ message: 'User input received successfully.', subFacts });
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'An error occurred while generating sub-facts.' });
     }
 });
+
 
 
 // Start the server
