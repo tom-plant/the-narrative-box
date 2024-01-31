@@ -15,8 +15,8 @@ app.use(cors());
 // Your ChatGPT API Key
 const chatGPTApiKey = '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';
 
-// Route to Handle User Input and Generate Sub-Facts
-app.post('/generate-sub-facts', async (req, res) => {
+// Route to Handle User Input and Generate Fact Boxes
+app.post('/generate-fact-boxes', async (req, res) => {
   try {
     // Extract the user input from the request
     const userInput = req.body.userInput;
