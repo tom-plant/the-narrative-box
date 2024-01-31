@@ -55,7 +55,12 @@ app.post('/generate-fact-boxes', async (req, res) => {
       console.log('Received user input:', userInput);
 
       const subFacts = await generateSubFacts(userInput);
-      res.json({ message: 'User input received successfully.', subFacts });
+
+
+      // Split subFacts into individual sentences using a delimiter
+      const subFactsArray = subFacts.split(/\d+\.\s+/);
+
+      res.json({ message: 'User input received successfully.', subFacts: subFactsArray });
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'An error occurred while generating sub-facts.' });
