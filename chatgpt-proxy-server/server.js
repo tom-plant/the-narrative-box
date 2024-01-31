@@ -58,18 +58,18 @@ app.post('/generate-fact-boxes', async (req, res) => {
 
       const subFacts = await generateSubFacts(userInput);
 
-      // Log the subFacts string to the server console for debugging
-      console.log('Sub-Facts String on Server:', subFacts);
+      // // Log the subFacts string to the server console for debugging
+      // console.log('Sub-Facts String on Server:', subFacts);
 
-      // Split subFacts into individual sentences using a delimiter
-      const subFactsArray = subFacts.split('\n'); // Split on newline characters
+      // // Split subFacts into individual sentences using a delimiter
+      // const subFactsArray = subFacts.split('\n'); // Split on newline characters
 
-      // Log subFactsArray to the server console for debugging
-      console.log('Sub-Facts Array on Server:', subFactsArray);
-      console.log('Data type of subFactsArray on Server:', typeof subFactsArray);
+      // // Log subFactsArray to the server console for debugging
+      // console.log('Sub-Facts Array on Server:', subFactsArray);
+      // console.log('Data type of subFactsArray on Server:', typeof subFactsArray);
 
 
-      res.json({ message: 'User input received successfully.', subFacts: subFactsArray });
+      res.json({ message: 'User input received successfully.', subFacts });
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'An error occurred while generating sub-facts.' });

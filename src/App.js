@@ -54,12 +54,12 @@ function App() {
   const [factTexts, setFactTexts] = useState([]);
 
  // Callback function to receive and process subFactsArray from InputInterface
- const handleSubFactsReceived = (subFactsArray) => {
+ const handleSubFactsReceived = (generatedSubFactsArray) => {
   // Process the subFactsArray as needed
-  // console.log('Received Sub-Facts Array in App.js:', subFactsArray);
+  console.log('Received Sub-Facts Array in App.js:', generatedSubFactsArray);
 
   // Update the state with the processed subFactsArray
-  setFactTexts(subFactsArray);
+  setFactTexts(generatedSubFactsArray);
   };
 
   // Console Visibility

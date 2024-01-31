@@ -40,11 +40,16 @@ function InputInterface({ showConsoleRight, showConsoleLeft, factTexts, onReceiv
         // Handle the error here, e.g., display an error message to the user
       } else {
         // Server successfully processed the request
-        const generatedSubFacts = responseData.subFacts;
-        console.log('Generated Sub-Facts:', generatedSubFacts);
+        const generatedSubFactsString = responseData.subFacts;
+        // console.log('Generated Sub-Facts String:', generatedSubFactsString);
+
+         // Split the string into an array of sub-facts on the client side
+        const generatedSubFactsArray = generatedSubFactsString.split(/\d+\.\s+/);
+
+        // console.log('Generated Sub-Facts Array on Client:', generatedSubFactsArray);
 
         // Call the callback function with the generated sub-facts
-        onSubFactsReceived(generatedSubFacts);
+        onSubFactsReceived(generatedSubFactsArray);
       }
     } catch (error) {
       console.error('Error sending user input to the server:', error);
