@@ -8,39 +8,39 @@ import InputInterface from './components/InputInterface/InputInterface';
 import ConsoleRight from './components/ConsoleRight/ConsoleRight';
 import ConsoleLeft from './components/ConsoleLeft/ConsoleLeft';
 
-// An array of unique text data for fact boxes
-const factTexts = [
-  "Fact Box 1 Text",
-  "Fact Box 2 Text",
-  "Fact Box 3 Text",
-  "Fact Box 4 Text",
-  "Fact Box 5 Text",
-  "Fact Box 6 Text",
-  "Fact Box 7 Text",
-  "Fact Box 8 Text",
-  "Fact Box 9 Text",
-  "Fact Box 10 Text",
-  "Fact Box 11 Text",
-  "Fact Box 12 Text",
-  "Fact Box 13 Text",
-  "Fact Box 14 Text",
-  "Fact Box 15 Text",
-  "Fact Box 16 Text",
-  "Fact Box 17 Text",
-  "Fact Box 18 Text",
-  "Fact Box 19 Text",
-  "Fact Box 20 Text",
-  "Fact Box 21 Text",
-  "Fact Box 22 Text",
-  "Fact Box 23 Text",
-  "Fact Box 24 Text",
-  "Fact Box 25 Text",
-  "Fact Box 26 Text",
-  "Fact Box 27 Text",
-  "Fact Box 28 Text",
-  "Fact Box 29 Text",
-  "Fact Box 30 Text"
-];
+// // An array of unique text data for fact boxes
+// const factTexts = [
+//   "Fact Box 1 Text",
+//   "Fact Box 2 Text",
+//   "Fact Box 3 Text",
+//   "Fact Box 4 Text",
+//   "Fact Box 5 Text",
+//   "Fact Box 6 Text",
+//   "Fact Box 7 Text",
+//   "Fact Box 8 Text",
+//   "Fact Box 9 Text",
+//   "Fact Box 10 Text",
+//   "Fact Box 11 Text",
+//   "Fact Box 12 Text",
+//   "Fact Box 13 Text",
+//   "Fact Box 14 Text",
+//   "Fact Box 15 Text",
+//   "Fact Box 16 Text",
+//   "Fact Box 17 Text",
+//   "Fact Box 18 Text",
+//   "Fact Box 19 Text",
+//   "Fact Box 20 Text",
+//   "Fact Box 21 Text",
+//   "Fact Box 22 Text",
+//   "Fact Box 23 Text",
+//   "Fact Box 24 Text",
+//   "Fact Box 25 Text",
+//   "Fact Box 26 Text",
+//   "Fact Box 27 Text",
+//   "Fact Box 28 Text",
+//   "Fact Box 29 Text",
+//   "Fact Box 30 Text"
+// ];
 
 function App() {
   const [isConsoleRightVisible, setConsoleRightVisible] = useState(false);
@@ -50,8 +50,17 @@ function App() {
   const [revealedBoxCount, setRevealedBoxCount] = useState(0); // Initialize with 0
   const [isGPTButtonClicked, setIsGPTButtonClicked] = useState(false);
   const [isNarrativeButtonClicked, setIsNarrativeButtonClicked] = useState(false);
-  const [pulsingState, setPulsingState] = useState(false); // State to track pulsing state
+  const [pulsingState, setPulsingState] = useState(false); 
+  const [factTexts, setFactTexts] = useState([]);
 
+ // Callback function to receive and process subFactsArray from InputInterface
+ const handleSubFactsReceived = (subFactsArray) => {
+  // Process the subFactsArray as needed
+  // console.log('Received Sub-Facts Array in App.js:', subFactsArray);
+
+  // Update the state with the processed subFactsArray
+  setFactTexts(subFactsArray);
+  };
 
   // Console Visibility
   const showConsoleRight = () => {
@@ -125,13 +134,14 @@ function App() {
           isNarrativeButtonClicked={isNarrativeButtonClicked} // Pass the state as a prop
           />}
         <InputInterface
-          showConsoleRight={showConsoleRight} // callback function
-          showConsoleLeft={showConsoleLeft} // callback function
+          showConsoleRight={showConsoleRight} // Pass the callback function
+          showConsoleLeft={showConsoleLeft} // Pass the callback function
           factTexts={factTexts} // pass array of fact box texts as a prop
           onReceiveSelectedFactBoxes={receiveSelectedFactBoxes} // Pass the callback function
           getRevealedBoxCount={getRevealedBoxCount}
           onNarrativeButtonClick={handleNarrativeButtonClick} // Pass the callback function
           onPulsingStateChange={handlePulsingStateChange} // Pass the callback function
+          onSubFactsReceived={handleSubFactsReceived} // Pass the callback function
         />
         {isConsoleRightVisible && <ConsoleRight 
         selectedFactBoxes={selectedFactBoxes} 

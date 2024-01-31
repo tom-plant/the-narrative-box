@@ -9,7 +9,7 @@ import AvailableInformation from './AvailableInformation/AvailableInformation';
 import NarrativeButton from './NarrativeButton';
 import './InputInterface.css';
 
-function InputInterface({ showConsoleRight, showConsoleLeft, factTexts, onReceiveSelectedFactBoxes, getRevealedBoxCount, onNarrativeButtonClick, onPulsingStateChange }) {
+function InputInterface({ showConsoleRight, showConsoleLeft, factTexts, onReceiveSelectedFactBoxes, getRevealedBoxCount, onNarrativeButtonClick, onPulsingStateChange, onSubFactsReceived }) {
   const [isInfoButtonClicked, setIsInfoButtonClicked] = useState(false); // State to track Generate Information button click
   const [buttonDisabled, setButtonDisabled] = useState(false); // State to disable the Generate Information button
   const [isNarrativeButtonClicked, setNarrativeButtonClicked] = useState(false); // State to track the Generate Narrative button click
@@ -17,32 +17,40 @@ function InputInterface({ showConsoleRight, showConsoleLeft, factTexts, onReceiv
   const [remainingFacts, setRemainingFacts] = useState(null); // State to track when fact generation is exhausted
   const [selectedfactboxes, setSelectedFactBoxes] = useState([]); // State to track selected fact boxes
   const [userInput, setUserInput] = useState(''); // State to store user's text entry
+ 
+  // Function to send user input to the server
+  const sendUserInputToServer = async () => {
+    try {
+      const response = await axios.post('http://localhost:5000/generate-fact-boxes', {
+        userInput: userInput,
+      });
 
-// Function to send user input to the server
-const sendUserInputToServer = async () => {
-  try {
-    const response = await axios.post('http://localhost:5000/generate-fact-boxes', {
-      userInput: userInput,
-    });
+      // Handle the response from the server
+      const responseData = response.data;
 
-    // Handle the response from the server
-    const responseData = response.data;
+      // Check the data type of responseData.subFacts
+      console.log('Data type of responseData.subFacts:', typeof responseData.subFacts);
+      // Log responseData.subFacts to see what's being received
+      // console.log('Received Sub-Facts on Client:', responseData.subFacts);
 
-    // Check if there was an error on the server
-    if (responseData.error) {
-      console.error('Error from server:', responseData.error);
+
+      // Check if there was an error on the server
+      if (responseData.error) {
+        console.error('Error from server:', responseData.error);
+        // Handle the error here, e.g., display an error message to the user
+      } else {
+        // Server successfully processed the request
+        const generatedSubFacts = responseData.subFacts;
+        console.log('Generated Sub-Facts:', generatedSubFacts);
+
+        // Call the callback function with the generated sub-facts
+        onSubFactsReceived(generatedSubFacts);
+      }
+    } catch (error) {
+      console.error('Error sending user input to the server:', error);
       // Handle the error here, e.g., display an error message to the user
-    } else {
-      // Server successfully processed the request
-      const generatedSubFacts = responseData.subFacts;
-      console.log('Generated Sub-Facts:', generatedSubFacts);
-      // Update your UI with the generated sub-facts
     }
-  } catch (error) {
-    console.error('Error sending user input to the server:', error);
-    // Handle the error here, e.g., display an error message to the user
-  }
-};
+  };
 
 // Function to handle remainingFactCount received from AvailableInformation
   const handleRemainingFactCount = (count) => {

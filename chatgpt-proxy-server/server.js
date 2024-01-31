@@ -16,9 +16,11 @@ app.use(cors());
 const chatGPTApiKey = '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';
 
 
-// Function to generate sub-facts using ChatGPT
+// Function to generate factboxes using ChatGPT
 const generateSubFacts = async (userInput) => {
     try {
+      console.log('User Input to send to chatgpt:', userInput); // Add this line to log the user input
+
       const chatGPTUrl = 'https://api.openai.com/v1/chat/completions';
 
       // Structure the payload for the ChatGPT API
@@ -56,9 +58,16 @@ app.post('/generate-fact-boxes', async (req, res) => {
 
       const subFacts = await generateSubFacts(userInput);
 
+      // Log the subFacts string to the server console for debugging
+      console.log('Sub-Facts String on Server:', subFacts);
 
       // Split subFacts into individual sentences using a delimiter
-      const subFactsArray = subFacts.split(/\d+\.\s+/);
+      const subFactsArray = subFacts.split('\n'); // Split on newline characters
+
+      // Log subFactsArray to the server console for debugging
+      console.log('Sub-Facts Array on Server:', subFactsArray);
+      console.log('Data type of subFactsArray on Server:', typeof subFactsArray);
+
 
       res.json({ message: 'User input received successfully.', subFacts: subFactsArray });
     } catch (error) {
