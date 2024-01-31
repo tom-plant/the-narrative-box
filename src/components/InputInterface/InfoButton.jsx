@@ -3,11 +3,13 @@
 import React, { useState } from 'react';
 import './InfoButton.css';
 
-function InfoButton({ onInfoClick, disabled }) {
+function InfoButton({ onInfoClick, disabled, userInput, sendUserInputToServer }) {
   const [buttonText, setButtonText] = useState('Generate Information'); // Initialize button text
   const [buttonClicked, setButtonClicked] = useState(false); // Initialize button click state
 
   const handleInfoClick = () => {
+    console.log('User input:', userInput);
+    sendUserInputToServer();
     if (disabled) {
       // If disabled, trigger the animation and return without generating more boxes
       setButtonClicked(true);

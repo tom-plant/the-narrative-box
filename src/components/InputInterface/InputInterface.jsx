@@ -1,6 +1,8 @@
 // InputInterface.jsx
 
 import React, { useState, useEffect } from 'react';
+import axios from 'axios'; 
+
 import TextEntryBox from './TextEntryBox';
 import InfoButton from './InfoButton';
 import AvailableInformation from './AvailableInformation/AvailableInformation';
@@ -14,7 +16,33 @@ function InputInterface({ showConsoleRight, showConsoleLeft, factTexts, onReceiv
   const [selectedBoxCount, setSelectedBoxCount] = useState(0); // State to track selected box count
   const [remainingFacts, setRemainingFacts] = useState(null); // State to track when fact generation is exhausted
   const [selectedfactboxes, setSelectedFactBoxes] = useState([]); // State to track selected fact boxes
+  const [userInput, setUserInput] = useState(''); // State to store user's text entry
 
+// Function to send user input to the server
+const sendUserInputToServer = async () => {
+  try {
+    const response = await axios.post('http://localhost:5000/generate-fact-boxes', {
+      userInput: userInput,
+    });
+
+    // Handle the response from the server
+    const responseData = response.data;
+
+    // Check if there was an error on the server
+    if (responseData.error) {
+      console.error('Error from server:', responseData.error);
+      // Handle the error here, e.g., display an error message to the user
+    } else {
+      // Server successfully processed the request
+      const generatedSubFacts = responseData.subFacts;
+      console.log('Generated Sub-Facts:', generatedSubFacts);
+      // Update your UI with the generated sub-facts
+    }
+  } catch (error) {
+    console.error('Error sending user input to the server:', error);
+    // Handle the error here, e.g., display an error message to the user
+  }
+};
 
 // Function to handle remainingFactCount received from AvailableInformation
   const handleRemainingFactCount = (count) => {
@@ -84,10 +112,14 @@ const handleBoxSelectionChange = (count) => {
 
   return (
     <div className="input-interface">
-      <TextEntryBox />
+      <TextEntryBox 
+        setUserInput={setUserInput}
+      />
       <InfoButton
         onInfoClick={handleInfoClick} // Pass the callback function
         disabled={buttonDisabled} // Pass the disabled state to the Generate Information Button
+        userInput={userInput}
+        sendUserInputToServer={sendUserInputToServer}
       />
       <AvailableInformation
         isInfoButtonClicked={isInfoButtonClicked} // Pass isInfoButtonClicked as a prop 
