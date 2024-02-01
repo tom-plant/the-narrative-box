@@ -4,7 +4,7 @@ import './AvailableInformation.css';
 
 function AvailableInformation({ isInfoButtonClicked, isNarrativeButtonClicked, factTexts, onRemainingFactCount, onUpdateSelectedBoxCount, onGenerateNarrative, onSelectedFactBoxesChange }) {
   const [factBoxes, setFactBoxes] = useState([]); // State to store generated fact boxes
-  const [isButtonClicked, setIsButtonClicked] = useState(false); // State to track button click
+  const [isButtonClickedOnce, setIsButtonClickedOnce] = useState(false); // State to track Info Button click
   const [selectedBoxes, setSelectedBoxes] = useState([]); // State to store the index of selected fact boxes
   const [unselectedFactBoxes, setUnselectedFactBoxes] = useState([]); // State to store unselected fact boxes
   const [selectedFactBoxes, setSelectedFactBoxes] = useState([]); // State to store the selected fact boxes including their text and indices
@@ -27,6 +27,7 @@ function AvailableInformation({ isInfoButtonClicked, isNarrativeButtonClicked, f
   const generateFactBoxes = () => {
     // Check if there are more facts to generate
     if (factBoxes.length < factTexts.length) {
+      console.log("factBoxes.length < factTexts.length?",factBoxes.length < factTexts.length)
       // Create FactBox components from the fact texts in order
       const numToGenerate = Math.min(6, factTexts.length - factBoxes.length); // Calculate numToGenerate based on remaining facts
       const generatedFactBoxes = factTexts
@@ -48,11 +49,13 @@ function AvailableInformation({ isInfoButtonClicked, isNarrativeButtonClicked, f
 
   // Handle generating fact boxes when the InfoButton is clicked
   useEffect(() => {
-    if (isInfoButtonClicked) {
-      console.log('settingbuttonclicktotrue');
-      setIsButtonClicked(true); // Set the button click state to true when clicked
+    if (isInfoButtonClicked && !isButtonClickedOnce) {
+      setIsButtonClickedOnce(true); // Set the button click state to true when clicked /****THIS CONTROLS IF COUNTER AND TEXT APPEAR THIS IS innecessary because we already recevie isbuttonclicked so this is repetitive and requires changing other parts 
     }
-    generateFactBoxes();
+    if (factTexts.length > 0) {
+      generateFactBoxes();
+      console.log('just triggered generatefactboxes upon promise that factexts is > 0')
+    }
   }, [isInfoButtonClicked, factTexts]);
 
   // Handle Generate Narrative Button Click
@@ -77,7 +80,7 @@ function AvailableInformation({ isInfoButtonClicked, isNarrativeButtonClicked, f
 
   // Function to handle fact box click and toggle selection
   const handleBoxClick = (index) => {
-    if (isButtonClicked) {
+    if (isButtonClickedOnce) { 
       if (selectedBoxes.length < 5 || selectedBoxes.includes(index)) {
         const selectedBoxIndex = selectedBoxes.indexOf(index);
         if (selectedBoxIndex === -1) {
@@ -121,12 +124,12 @@ function AvailableInformation({ isInfoButtonClicked, isNarrativeButtonClicked, f
 
   return (
     <div className="available-information">
-      {isButtonClicked && (
+      {isButtonClickedOnce && (
         <div className="select-text">Select up to five pieces of information</div>
       )}
 
       {/* Display the counter */}
-      {isButtonClicked && (
+      {isButtonClickedOnce && (
         <div className="counter">{`${selectedBoxCount}/5`}</div>
       )}
 

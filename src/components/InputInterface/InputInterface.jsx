@@ -22,9 +22,9 @@ function InputInterface({ showConsoleRight, showConsoleLeft, factTexts, onReceiv
   // Function to send user input to the server
   const sendUserInputToServer = async () => {
     try {
-      // Check if the current input is different from the previous input
-      if (userInput !== previousUserInput) {
-        console.log('user input is new!')
+      // Check if the current input is different from the previous input before prompting ChatGPT
+      if (userInput !== previousUserInput) { // *****MAYBE ADD && userInput !=== 0 ///******* 
+        console.log('User input is new!')
         const response = await axios.post('http://localhost:5000/generate-fact-boxes', {
           userInput: userInput,
       });
@@ -70,19 +70,19 @@ function InputInterface({ showConsoleRight, showConsoleLeft, factTexts, onReceiv
     }
   };
 
-// Function to handle remainingFactCount received from AvailableInformation
-  const handleRemainingFactCount = (count) => {
+// Callback function to handle remainingFactCount received from AvailableInformation
+  const handleRemainingFactCount = (count) => { //I think this 'count' is equivalent to remainingFactCount in availableinformation
     // Calculate the number of revealed boxes
     const revealedBoxCount = 30 - count;
-    // Set the remaining facts count in the parent's state
     setRemainingFacts(count);
+    console.log('Remaining fact count:',remainingFacts)
     getRevealedBoxCount(revealedBoxCount); 
   };
   
 // Generate Information Button
   const handleInfoClick = () => {
     // Disable Generate Information Button
-    if (remainingFacts === 6) {
+    if (remainingFacts === 0) {
       // Disable the button if the factCount reaches 30
       setButtonDisabled(true);
       console.log("Button disabled!"); // Add a console log to check if the button is disabled
@@ -90,11 +90,11 @@ function InputInterface({ showConsoleRight, showConsoleLeft, factTexts, onReceiv
     }
 
     // Set the state to indicate the Generate Information button has been clicked
-    setIsInfoButtonClicked(true);
+    setIsInfoButtonClicked(!isInfoButtonClicked);
     console.log("Generate Information button clicked!"); // Add a console log to check if the button is clicked
-    setTimeout(() => {
-      setIsInfoButtonClicked(false);
-    }, 100);
+    // setTimeout(() => {
+    //   setIsInfoButtonClicked(false);
+    // }, 500);
   };
 
   // Fact Box Selection Counter
