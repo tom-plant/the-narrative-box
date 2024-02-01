@@ -23,10 +23,10 @@ function AvailableInformation({ isInfoButtonClicked, isNarrativeButtonClicked, f
     }
   }, [factTexts]);
 
-  // Function to generate fact boxes based on the data source
+    // Function to generate fact boxes based on the data source
   const generateFactBoxes = () => {
-    // Check if the "Generate Information" button is clicked and there are more facts to generate
-    if (isInfoButtonClicked && factBoxes.length < factTexts.length) {
+    // Check if there are more facts to generate
+    if (factBoxes.length < factTexts.length) {
       // Create FactBox components from the fact texts in order
       const numToGenerate = Math.min(6, factTexts.length - factBoxes.length); // Calculate numToGenerate based on remaining facts
       const generatedFactBoxes = factTexts
@@ -35,13 +35,13 @@ function AvailableInformation({ isInfoButtonClicked, isNarrativeButtonClicked, f
           index: factBoxes.length + index, // Store the index
           text: factText, // Store the text
         }));
-  
+
       // Append the newly generated fact boxes to the existing ones
       setFactBoxes((prevFactBoxes) => [...prevFactBoxes, ...generatedFactBoxes]);
-  
+
       // Calculate remainingFactCount after appending
       const remainingFactCount = factTexts.length - factBoxes.length - numToGenerate;
-      // Pass to parent component
+      // Pass to the parent component
       onRemainingFactCount(remainingFactCount);
     }
   };
