@@ -23,8 +23,8 @@ function InputInterface({ showConsoleRight, showConsoleLeft, factTexts, onReceiv
   const sendUserInputToServer = async () => {
     try {
       // Check if the current input is different from the previous input before prompting ChatGPT
-      if (userInput !== previousUserInput) { // *****MAYBE ADD && userInput !=== 0 ///******* 
-        console.log('User input is new!')
+      if (userInput !== previousUserInput && userInput) {
+        console.log('User input is new and empty!')
         const response = await axios.post('http://localhost:5000/generate-fact-boxes', {
           userInput: userInput,
       });
