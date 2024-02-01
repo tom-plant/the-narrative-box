@@ -51,6 +51,12 @@ function InputInterface({ showConsoleRight, showConsoleLeft, factTexts, onReceiv
         const generatedSubFactsArray = generatedSubFactsString.split(/\d+\.\s+/);
         // console.log('Generated Sub-Facts Array on Client:', generatedSubFactsArray);
 
+
+        // Remove the empty first element, if it exists
+        if (generatedSubFactsArray.length > 0 && generatedSubFactsArray[0] === '') {
+          generatedSubFactsArray.shift(); // Remove the first element
+        }
+        
         // Update the previous input text
         setPreviousUserInput(userInput);
 
