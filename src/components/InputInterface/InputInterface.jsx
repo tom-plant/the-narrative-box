@@ -156,6 +156,7 @@ const handleBoxSelectionChange = (count) => {
         onRemainingFactCount={handleRemainingFactCount}
         onGenerateNarrative={receiveSelectedFactBoxes}
         onSelectedFactBoxesChange={handleSelectedFactBoxesChange}
+        userInput={userInput}
       />
       {selectedBoxCount > 2 && ( 
         <NarrativeButton

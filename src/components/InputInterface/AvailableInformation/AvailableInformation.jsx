@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import FactBox from './FactBox';
+import LoadingAnimation from './LoadingAnimation';
 import './AvailableInformation.css';
 
-function AvailableInformation({ isInfoButtonClicked, isNarrativeButtonClicked, factTexts, onRemainingFactCount, onUpdateSelectedBoxCount, onGenerateNarrative, onSelectedFactBoxesChange }) {
+function AvailableInformation({ isInfoButtonClicked, isNarrativeButtonClicked, factTexts, onRemainingFactCount, onUpdateSelectedBoxCount, onGenerateNarrative, onSelectedFactBoxesChange, userInput }) {
   const [factBoxes, setFactBoxes] = useState([]); // State to store generated fact boxes
   const [isButtonClickedOnce, setIsButtonClickedOnce] = useState(false); // State to track Info Button click
   const [selectedBoxes, setSelectedBoxes] = useState([]); // State to store the index of selected fact boxes
   const [unselectedFactBoxes, setUnselectedFactBoxes] = useState([]); // State to store unselected fact boxes
   const [selectedFactBoxes, setSelectedFactBoxes] = useState([]); // State to store the selected fact boxes including their text and indices
   const prevSelectedFactBoxesRef = useRef(selectedFactBoxes);
+  const [isLoading, setIsLoading] = useState(false);
 
 
   useEffect(() => {
@@ -39,6 +41,7 @@ function AvailableInformation({ isInfoButtonClicked, isNarrativeButtonClicked, f
 
       // Append the newly generated fact boxes to the existing ones
       setFactBoxes((prevFactBoxes) => [...prevFactBoxes, ...generatedFactBoxes]);
+      setIsLoading(false); // Stop loading once fact boxes are generated
 
       // Calculate remainingFactCount after appending
       const remainingFactCount = factTexts.length - factBoxes.length - numToGenerate;
@@ -50,7 +53,10 @@ function AvailableInformation({ isInfoButtonClicked, isNarrativeButtonClicked, f
   // Handle generating fact boxes when the InfoButton is clicked
   useEffect(() => {
     if (isInfoButtonClicked && !isButtonClickedOnce) {
-      setIsButtonClickedOnce(true); // Set the button click state to true when clicked /****THIS CONTROLS IF COUNTER AND TEXT APPEAR THIS IS innecessary because we already recevie isbuttonclicked so this is repetitive and requires changing other parts 
+      setIsButtonClickedOnce(true); // Set the button click state to true when clicked 
+      if (userInput) {
+        setIsLoading(true); // Start loading 
+      }
     }
     if (factTexts.length > 0) {
       generateFactBoxes();
@@ -124,6 +130,7 @@ function AvailableInformation({ isInfoButtonClicked, isNarrativeButtonClicked, f
 
   return (
     <div className="available-information">
+      {isLoading && <LoadingAnimation />}
       {isButtonClickedOnce && (
         <div className="select-text">Select up to five pieces of information</div>
       )}
