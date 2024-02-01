@@ -12,12 +12,15 @@ function AvailableInformation({ isInfoButtonClicked, isNarrativeButtonClicked, f
 
 
   useEffect(() => {
-    // Initialize unselectedFactBoxes with all fact boxes
-    const initialUnselectedFactBoxes = factTexts.map((factText, index) => ({
-      index,
-      text: factText,
-    }));
-    setUnselectedFactBoxes(initialUnselectedFactBoxes);
+    console.log('checking fact texts length',factTexts.length);
+    if (factTexts.length > 0) {
+      // Initialize unselectedFactBoxes with all fact boxes
+      const initialUnselectedFactBoxes = factTexts.map((factText, index) => ({
+        index,
+        text: factText,
+      }));
+      setUnselectedFactBoxes(initialUnselectedFactBoxes);
+    }
   }, [factTexts]);
 
   // Function to generate fact boxes based on the data source
@@ -46,10 +49,11 @@ function AvailableInformation({ isInfoButtonClicked, isNarrativeButtonClicked, f
   // Handle generating fact boxes when the InfoButton is clicked
   useEffect(() => {
     if (isInfoButtonClicked) {
+      console.log('settingbuttonclicktotrue');
       setIsButtonClicked(true); // Set the button click state to true when clicked
     }
     generateFactBoxes();
-  }, [isInfoButtonClicked]);
+  }, [isInfoButtonClicked, factTexts]);
 
   // Handle Generate Narrative Button Click
   useEffect(() => {

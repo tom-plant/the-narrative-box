@@ -17,19 +17,23 @@ function InputInterface({ showConsoleRight, showConsoleLeft, factTexts, onReceiv
   const [remainingFacts, setRemainingFacts] = useState(null); // State to track when fact generation is exhausted
   const [selectedfactboxes, setSelectedFactBoxes] = useState([]); // State to track selected fact boxes
   const [userInput, setUserInput] = useState(''); // State to store user's text entry
+  const [previousUserInput, setPreviousUserInput] = useState('');
  
   // Function to send user input to the server
   const sendUserInputToServer = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/generate-fact-boxes', {
-        userInput: userInput,
+      // Check if the current input is different from the previous input
+      if (userInput !== previousUserInput) {
+        console.log('user input is new!')
+        const response = await axios.post('http://localhost:5000/generate-fact-boxes', {
+          userInput: userInput,
       });
 
       // Handle the response from the server
       const responseData = response.data;
 
       // Check the data type of responseData.subFacts
-      console.log('Data type of responseData.subFacts:', typeof responseData.subFacts);
+      // console.log('Data type of responseData.subFacts:', typeof responseData.subFacts);
       // Log responseData.subFacts to see what's being received
       // console.log('Received Sub-Facts on Client:', responseData.subFacts);
 
@@ -43,14 +47,17 @@ function InputInterface({ showConsoleRight, showConsoleLeft, factTexts, onReceiv
         const generatedSubFactsString = responseData.subFacts;
         // console.log('Generated Sub-Facts String:', generatedSubFactsString);
 
-         // Split the string into an array of sub-facts on the client side
+        // Split the string into an array of sub-facts on the client side
         const generatedSubFactsArray = generatedSubFactsString.split(/\d+\.\s+/);
-
         // console.log('Generated Sub-Facts Array on Client:', generatedSubFactsArray);
+
+        // Update the previous input text
+        setPreviousUserInput(userInput);
 
         // Call the callback function with the generated sub-facts
         onSubFactsReceived(generatedSubFactsArray);
       }
+     }
     } catch (error) {
       console.error('Error sending user input to the server:', error);
       // Handle the error here, e.g., display an error message to the user

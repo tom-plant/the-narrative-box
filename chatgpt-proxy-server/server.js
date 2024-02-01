@@ -28,7 +28,8 @@ const generateSubFacts = async (userInput) => {
         model: "gpt-3.5-turbo", // You can choose the model you prefer
         messages: [
           { role: "system", content: "You are a helpful assistant." },
-          { role: "user", content: `Generate 30 sub-facts about the event: ${userInput}` }
+          // { role: "user", content: `Generate 30 sub-facts about the event: ${userInput}` }
+          { role: "user", content: `Generate 30 words in a list` }
         ],
       };
 
