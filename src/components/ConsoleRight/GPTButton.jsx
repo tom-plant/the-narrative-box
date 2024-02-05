@@ -30,7 +30,7 @@ function GPTButton({ onClick, selectedFactBoxes, pulsingState }) {
     }
   }, [selectedFactBoxes, pulsingState]);
 
-  // Helper function to check if two arrays are equal
+  // Helper function to check if the updated selected boxes array and prior selected boxes array are equal
   const arraysAreEqual = (arr1, arr2) => {
     if (arr1.length !== arr2.length) return false;
     for (let i = 0; i < arr1.length; i++) {

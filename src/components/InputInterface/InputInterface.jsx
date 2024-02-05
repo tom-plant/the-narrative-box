@@ -9,7 +9,7 @@ import AvailableInformation from './AvailableInformation/AvailableInformation';
 import NarrativeButton from './NarrativeButton';
 import './InputInterface.css';
 
-function InputInterface({ showConsoleRight, showConsoleLeft, factTexts, onReceiveSelectedFactBoxes, getRevealedBoxCount, onNarrativeButtonClick, onPulsingStateChange, onSubFactsReceived }) {
+function InputInterface({ showConsoleRight, showConsoleLeft, factTexts, onReceiveSelectedFactBoxes, getRevealedBoxCount, onNarrativeButtonClick, onPulsingStateChange, onSubFactsReceived, onReceiveUserInput }) {
   const [isInfoButtonClicked, setIsInfoButtonClicked] = useState(false); // State to track Generate Information button click
   const [buttonDisabled, setButtonDisabled] = useState(false); // State to disable the Generate Information button
   const [isNarrativeButtonClicked, setNarrativeButtonClicked] = useState(false); // State to track the Generate Narrative button click
@@ -59,6 +59,7 @@ function InputInterface({ showConsoleRight, showConsoleLeft, factTexts, onReceiv
         
         // Update the previous input text
         setPreviousUserInput(userInput);
+        onReceiveUserInput(userInput);
 
         // Call the callback function with the generated sub-facts
         onSubFactsReceived(generatedSubFactsArray);
@@ -69,6 +70,7 @@ function InputInterface({ showConsoleRight, showConsoleLeft, factTexts, onReceiv
       // Handle the error here, e.g., display an error message to the user
     }
   };
+
 
 // Callback function to handle remainingFactCount received from AvailableInformation
   const handleRemainingFactCount = (count) => { //I think this 'count' is equivalent to remainingFactCount in availableinformation

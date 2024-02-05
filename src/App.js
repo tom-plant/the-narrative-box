@@ -1,6 +1,6 @@
 // App.js
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 import Header from './components/Header';
@@ -8,39 +8,6 @@ import InputInterface from './components/InputInterface/InputInterface';
 import ConsoleRight from './components/ConsoleRight/ConsoleRight';
 import ConsoleLeft from './components/ConsoleLeft/ConsoleLeft';
 
-// // An array of unique text data for fact boxes
-// const factTexts = [
-//   "Fact Box 1 Text",
-//   "Fact Box 2 Text",
-//   "Fact Box 3 Text",
-//   "Fact Box 4 Text",
-//   "Fact Box 5 Text",
-//   "Fact Box 6 Text",
-//   "Fact Box 7 Text",
-//   "Fact Box 8 Text",
-//   "Fact Box 9 Text",
-//   "Fact Box 10 Text",
-//   "Fact Box 11 Text",
-//   "Fact Box 12 Text",
-//   "Fact Box 13 Text",
-//   "Fact Box 14 Text",
-//   "Fact Box 15 Text",
-//   "Fact Box 16 Text",
-//   "Fact Box 17 Text",
-//   "Fact Box 18 Text",
-//   "Fact Box 19 Text",
-//   "Fact Box 20 Text",
-//   "Fact Box 21 Text",
-//   "Fact Box 22 Text",
-//   "Fact Box 23 Text",
-//   "Fact Box 24 Text",
-//   "Fact Box 25 Text",
-//   "Fact Box 26 Text",
-//   "Fact Box 27 Text",
-//   "Fact Box 28 Text",
-//   "Fact Box 29 Text",
-//   "Fact Box 30 Text"
-// ];
 
 function App() {
   const [isConsoleRightVisible, setConsoleRightVisible] = useState(false);
@@ -52,14 +19,27 @@ function App() {
   const [isNarrativeButtonClicked, setIsNarrativeButtonClicked] = useState(false);
   const [pulsingState, setPulsingState] = useState(false); 
   const [factTexts, setFactTexts] = useState([]);
+  const [autoSelectedFactBoxes, setAutoSelectedFactBoxes] = useState([]);
+  const [userInput, setUserInput] = useState([]);
 
  // Callback function to receive and process subFactsArray from InputInterface
  const handleSubFactsReceived = (generatedSubFactsArray) => {
   // Process the subFactsArray as needed
   console.log('Received Sub-Facts Array in App.js:', generatedSubFactsArray);
-
   // Update the state with the processed subFactsArray
   setFactTexts(generatedSubFactsArray);
+  };
+
+  const handleReceiveUserInput = (userInput) => {
+    console.log('Received UserInput in App.js:', userInput);
+    setUserInput(userInput);
+  }
+
+  // Callback function to update finalFactBoxes when called by child components
+  const receiveAutoSelectedFactBoxes = (finalFactBoxes) => {
+    console.log('Received autoselectedfact boxes in App.js:', finalFactBoxes);
+    setAutoSelectedFactBoxes(finalFactBoxes);
+    // console.log('AutoSelected boxes in app.js:',AutoSelectedFactBoxes);
   };
 
   // Console Visibility
@@ -132,6 +112,7 @@ function App() {
           isGPTButtonClicked={isGPTButtonClicked} // Pass the state as a prop
           isConsoleLeftVisible={isConsoleLeftVisible}
           isNarrativeButtonClicked={isNarrativeButtonClicked} // Pass the state as a prop
+          onReceiveAutoSelectedFactBoxes={receiveAutoSelectedFactBoxes} // Pass the callback function
           />}
         <InputInterface
           showConsoleRight={showConsoleRight} // Pass the callback function
@@ -142,11 +123,14 @@ function App() {
           onNarrativeButtonClick={handleNarrativeButtonClick} // Pass the callback function
           onPulsingStateChange={handlePulsingStateChange} // Pass the callback function
           onSubFactsReceived={handleSubFactsReceived} // Pass the callback function
+          onReceiveUserInput={handleReceiveUserInput} //
         />
         {isConsoleRightVisible && <ConsoleRight 
         selectedFactBoxes={selectedFactBoxes} 
         onGPTButtonClick={handleGPTButtonClick} // Pass the callback function
         pulsingState={pulsingState} // Pass the pulsing state as a prop
+        autoSelectedFactBoxes={autoSelectedFactBoxes}
+        userInput={userInput} 
         />}
       </div>
     </div>

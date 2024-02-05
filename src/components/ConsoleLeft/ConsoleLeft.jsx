@@ -5,7 +5,7 @@ import './ConsoleLeft.css';
 import AutoSelectedInformation from './AutoSelectedInformation/AutoSelectedInformation';
 import AutoNarrativeBox from './AutoNarrativeBox';
 
-function ConsoleLeft({ selectedFactBoxes, unselectedFactBoxes, revealedBoxCount, factTexts, isGPTButtonClicked, isConsoleLeftVisible, isNarrativeButtonClicked }) {
+function ConsoleLeft({ selectedFactBoxes, unselectedFactBoxes, revealedBoxCount, factTexts, isGPTButtonClicked, isConsoleLeftVisible, isNarrativeButtonClicked, onReceiveAutoSelectedFactBoxes }) {
   const numberOfSelectedBoxes = selectedFactBoxes.length;   // Calculate the number of selected boxes
   const numberOfRevealedBoxes = revealedBoxCount;  // Calculate the number of revealed boxes
   const numberOfRevealedUnselected = numberOfRevealedBoxes - numberOfSelectedBoxes; // Calculate the number of revealed and unselected boxes
@@ -74,6 +74,11 @@ function ConsoleLeft({ selectedFactBoxes, unselectedFactBoxes, revealedBoxCount,
   }, [isNarrativeButtonClicked, isConsoleLeftVisible, numberOfRevealedUnselected, numberOfSelectedBoxes, unselectedFactBoxes, factTexts, selectedFactBoxes]);
 
   // console.log("finalfactboxes",finalFactBoxes)
+
+  useEffect(() => {
+    console.log('finalfactboxes updated',finalFactBoxes)
+    onReceiveAutoSelectedFactBoxes(finalFactBoxes);
+  }, [finalFactBoxes]);
 
 
   // Use the isGPTButtonClicked prop to conditionally render AutoNarrativeBox
