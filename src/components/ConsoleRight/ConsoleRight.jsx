@@ -9,7 +9,7 @@ import GPTButton from './GPTButton';
 import NarrativeBox from './NarrativeBox'; 
 
 
-function ConsoleRight({ selectedFactBoxes, onGPTButtonClick, pulsingState, autoSelectedFactBoxes, userInput }) { // Pass selectedFactBoxes as a prop
+function ConsoleRight({ selectedFactBoxes, onGPTButtonClick, pulsingState, autoSelectedFactBoxes, userInput, onAutoNarrativeReceived }) { // Pass selectedFactBoxes as a prop
   const [showNarrative, setShowNarrative] = useState(false); // State to control the visibility of NarrativeBox
   const [narrative1, setNarrative1] = useState(''); // State for the first narrative
   const [narrative2, setNarrative2] = useState(''); // State for the second narrative
@@ -42,6 +42,7 @@ function ConsoleRight({ selectedFactBoxes, onGPTButtonClick, pulsingState, autoS
         setNarrative1(narrative1);
         setNarrative2(narrative2);
         console.log('responses appear to be successful:',narrative1, narrative2)
+        onAutoNarrativeReceived(narrative2);
       })
       .catch((error) => {
         // Handle errors here
@@ -74,7 +75,9 @@ function ConsoleRight({ selectedFactBoxes, onGPTButtonClick, pulsingState, autoS
         autoSelectedFactBoxes={autoSelectedFactBoxes}
       />
        {/* Conditionally render NarrativeBox */}
-       {showNarrative && <NarrativeBox />}
+       {showNarrative && <NarrativeBox 
+        narrative1={narrative1}
+       />}
     </div>
   );
 }

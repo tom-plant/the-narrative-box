@@ -21,6 +21,13 @@ function App() {
   const [factTexts, setFactTexts] = useState([]);
   const [autoSelectedFactBoxes, setAutoSelectedFactBoxes] = useState([]);
   const [userInput, setUserInput] = useState([]);
+  const [receivedAutoNarrative, setReceivedAutoNarrative] = useState('');
+
+  // Callback function to receive Autoselected Narrative from ConsoleRight
+  const onAutoNarrativeReceived = (narrative2) => {
+    setReceivedAutoNarrative(narrative2);
+    console.log('narrative2 received in app.js')
+  };
 
  // Callback function to receive and process subFactsArray from InputInterface
  const handleSubFactsReceived = (generatedSubFactsArray) => {
@@ -113,6 +120,7 @@ function App() {
           isConsoleLeftVisible={isConsoleLeftVisible}
           isNarrativeButtonClicked={isNarrativeButtonClicked} // Pass the state as a prop
           onReceiveAutoSelectedFactBoxes={receiveAutoSelectedFactBoxes} // Pass the callback function
+          receivedAutoNarrative={receivedAutoNarrative}
           />}
         <InputInterface
           showConsoleRight={showConsoleRight} // Pass the callback function
@@ -131,6 +139,7 @@ function App() {
         pulsingState={pulsingState} // Pass the pulsing state as a prop
         autoSelectedFactBoxes={autoSelectedFactBoxes}
         userInput={userInput} 
+        onAutoNarrativeReceived={onAutoNarrativeReceived} // Pass the callback function
         />}
       </div>
     </div>

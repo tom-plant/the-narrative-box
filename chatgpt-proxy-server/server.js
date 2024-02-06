@@ -27,8 +27,8 @@ const generateSubFacts = async (userInput) => {
       const payload = {
         model: "gpt-3.5-turbo", // You can choose the model you prefer
         messages: [
-          { role: "system", content: "You are a helpful assistant." },
-          { role: "user", content: `Generate 30 short sub-facts about the event: ${userInput}` }
+          { role: "system", content: "You are a helpful assistant who writes in clear, concise, and readable language." },
+          { role: "user", content: `Generate 30 short hypthetical sub-facts about the hypothetical event: ${userInput}. Imagine that this is a breaking news event, and you are supplying unbiased facts or fictions about the event. They should be presented as facts no more than a few words long.` }
           // { role: "user", content: `Generate 30 words in a list` }
         ],
       };
@@ -79,7 +79,7 @@ const generateNarratives = async (userInput, selectedInformation, autoSelectedIn
       model: 'gpt-3.5-turbo', 
       messages: [
         { role: 'system', content: 'You are a helpful assistant.' },
-        { role: 'user', content: `Generate a narrative about the following event:\n\nUser Input: ${userInput}\n\nBased on the following selected information:\n1. ${selectedInformation[0]}\n2. ${selectedInformation[1]}\n3. ${selectedInformation[2]}\n4. ${selectedInformation[3]}\n5. ${selectedInformation[4]}\n\nCreate a narrative that leads to a particular conclusion or recommendation regarding the event. Your narrative should consider the implications of the selected information and suggest a course of action or thought.` },
+        { role: 'user', content: `Generate a short news-like narrative about the following event:\n\nUser Input: ${userInput}\n\nBased on the following selected information:\n1. ${selectedInformation[0]}\n2. ${selectedInformation[1]}\n3. ${selectedInformation[2]}\n4. ${selectedInformation[3]}\n5. ${selectedInformation[4]}\n\nCreate a narrative that leads to a particular conclusion or recommendation regarding the event. Your narrative should consider the implications of the selected information and suggest a course of action or thought. It should be no more than three sentences. ` },
       ],
     };
 
@@ -87,7 +87,7 @@ const generateNarratives = async (userInput, selectedInformation, autoSelectedIn
       model: 'gpt-3.5-turbo', 
       messages: [
         { role: 'system', content: 'You are a helpful assistant.' },
-        { role: 'user', content: `Generate a narrative about the following event:\n\nUser Input: ${userInput}\n\nBased on the following auto-selected information:\n1. ${autoSelectedInformation[0]}\n2. ${autoSelectedInformation[1]}\n3. ${autoSelectedInformation[2]}\n4. ${autoSelectedInformation[3]}\n5. ${autoSelectedInformation[4]}\n\nCraft a narrative that leads to a different conclusion or recommendation compared to the previous narrative. Consider the implications of the auto-selected information and suggest an alternative course of action or thought.` },
+        { role: 'user', content: `Generate a news-like narrative about the following event:\n\nUser Input: ${userInput}\n\nBased on the following auto-selected information:\n1. ${autoSelectedInformation[0]}\n2. ${autoSelectedInformation[1]}\n3. ${autoSelectedInformation[2]}\n4. ${autoSelectedInformation[3]}\n5. ${autoSelectedInformation[4]}\n\nCraft a narrative that leads to a different conclusion or recommendation compared to the previous narrative. Consider the implications of the auto-selected information and suggest an alternative course of action or thought. It should be no more than three sentences. ` },
       ],
     };
 

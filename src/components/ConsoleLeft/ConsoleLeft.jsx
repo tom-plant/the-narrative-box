@@ -5,7 +5,7 @@ import './ConsoleLeft.css';
 import AutoSelectedInformation from './AutoSelectedInformation/AutoSelectedInformation';
 import AutoNarrativeBox from './AutoNarrativeBox';
 
-function ConsoleLeft({ selectedFactBoxes, unselectedFactBoxes, revealedBoxCount, factTexts, isGPTButtonClicked, isConsoleLeftVisible, isNarrativeButtonClicked, onReceiveAutoSelectedFactBoxes }) {
+function ConsoleLeft({ selectedFactBoxes, unselectedFactBoxes, revealedBoxCount, factTexts, isGPTButtonClicked, isConsoleLeftVisible, isNarrativeButtonClicked, onReceiveAutoSelectedFactBoxes, receivedAutoNarrative }) {
   const numberOfSelectedBoxes = selectedFactBoxes.length;   // Calculate the number of selected boxes
   const numberOfRevealedBoxes = revealedBoxCount;  // Calculate the number of revealed boxes
   const numberOfRevealedUnselected = numberOfRevealedBoxes - numberOfSelectedBoxes; // Calculate the number of revealed and unselected boxes
@@ -91,7 +91,9 @@ function ConsoleLeft({ selectedFactBoxes, unselectedFactBoxes, revealedBoxCount,
   return (
     <div className="console-left">
       <AutoSelectedInformation finalFactBoxes={finalFactBoxes} />
-      {showAutoNarrative && <AutoNarrativeBox />}
+      {showAutoNarrative && <AutoNarrativeBox 
+        receivedAutoNarrative={receivedAutoNarrative}
+      />}
     </div>
   );
 }
